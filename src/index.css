@@ -1,13 +1,144 @@
+html {
+  scroll-behavior: smooth;
+}
 body {
-  margin: 0;
+  margin: 0 0 200px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #1a202c;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+nav {
+  background-color: antiquewhite;
+  padding: 4rem 0;
+}
+
+nav ul {
+  margin: 0;
+  list-style-type: none;
+}
+
+figure {
+  position: relative;
+}
+
+.nav-button {
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.nav-button:visited {
+  color: black;
+}
+
+.link-format {
+  color: #f3f3f3;
+  margin-bottom: 3rem;
+}
+
+.nav-button {
+  display: inline;
+  margin: 0 2rem;
+}
+
+.page-container {
+  padding: 0 5rem;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 25rem 25rem 25rem 25rem;
+  padding: 0 5rem;
+  justify-content: center;
+}
+
+.grid-item {
+  margin: 2rem;
+  text-align: center;
+}
+
+.figure-effect {
+  border-radius: 10px;
+}
+
+.figure-text {
+  background: #1a202c;
+  color: #f3f3f3;
+  padding: 0 1rem;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 98%;
+  width: 15rem;
+  opacity: 0;
+  border-radius: 10px;
+  box-shadow: 5px 5px 6px rgb(0 0 0 / 45%);
+  transition: all 0.3s;
+}
+
+.card-img {
+  border-radius: 10px;
+  box-shadow: 5px 5px 6px rgb(0 0 0 / 45%);
+  transition: transform 0.3s;
+}
+
+.figure-effect:hover .figure-text {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1.2) translateX(15rem);
+}
+
+.figure-effect:hover .card-img {
+  position: sticky;
+  z-index: 2;
+  transform: scale(1.2);
+}
+
+.pagination {
+  display: block;
+  text-align: center;
+}
+
+.loader {
+  margin: 1rem auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid black;
+  width: 60px;
+  height: 60px;
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (max-width: 2000px) {
+  .grid-container {
+    grid-template-columns: 30rem 30rem;
+  }
+
+  .page-container {
+    padding: 0 3rem;
+  }
+
+  .figure-effect:hover .figure-text {
+    opacity: 1;
+    z-index: 1;
+    transform: scale(1.2) translateX(17rem);
+  }
 }
