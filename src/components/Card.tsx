@@ -1,30 +1,31 @@
-import React from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { MyCollectionContext, isCollected } from 'utils'
 
 type CardProps = {
-  cardData: PokemonCardObject
-  isCollected: boolean
-  collection: Collection
-  dispatch: React.Dispatch<Action>
+  cardData: PokemonCard
 }
 
-const Card = ({ cardData, isCollected, collection, dispatch }: CardProps) => {
+const Card = ({ cardData }: CardProps) => {
+  const { dispatch, myCollection } = useContext(MyCollectionContext)
+  const [pathname, setPathName] = useState(window.location.pathname)
+
   return (
-    <div className="grid-item">
+    <div className="grid-item content-center">
       <figure className="figure-effect">
         <img src={cardData.images.small} className="card-img" />
         <figcaption className="figure-text">
-          <p className="figure-inner-text">
+          <span className="figure-inner-text">
             <p>
               Name: <strong>{cardData.name}</strong>
             </p>
             <p>Set Release Date: {cardData.set.releaseDate}</p>
             <p>
               Types:{' '}
-              {cardData.types.map((type) => (
+              {cardData.types?.map((type) => (
                 <strong key={type}>{type}</strong>
               ))}
             </p>
-          </p>
+          </span>
           {cardData.tcgplayer ? (
             <p>
               <a
@@ -38,22 +39,14 @@ const Card = ({ cardData, isCollected, collection, dispatch }: CardProps) => {
             </p>
           ) : null}
           <div>
-            {isCollected ? (
+            {isCollected({ cards: myCollection.cards, id: cardData.id }) ? (
               <div>
-                {window.location.pathname === '/search' ? (
-                  <p>In Collection</p>
-                ) : null}
+                {pathname === '/search' ? <p>In Collection</p> : null}
                 <button
                   onClick={() => {
-                    const filteredCollection = collection.cards.filter(
-                      (card) => card.id !== cardData.id
-                    )
                     dispatch({
                       type: 'DELETE-CARD',
-                      newCollection: {
-                        ...collection,
-                        cards: filteredCollection,
-                      },
+                      card: cardData,
                     })
                   }}
                 >
@@ -65,10 +58,7 @@ const Card = ({ cardData, isCollected, collection, dispatch }: CardProps) => {
                 onClick={() => {
                   dispatch({
                     type: 'ADD-CARD',
-                    newCollection: {
-                      ...collection,
-                      cards: [...collection.cards, cardData],
-                    },
+                    card: cardData,
                   })
                 }}
               >

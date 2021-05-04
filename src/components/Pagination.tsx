@@ -2,30 +2,32 @@ import React from 'react'
 
 type PaginationProps = {
   currentPage: number
-  data: ResponseDataType
-  setPage: (page: number) => void
+  totalPages: number
+  setCurrentPage: (page: number) => void
 }
 
-const Pagination = ({ currentPage, data, setPage }: PaginationProps) => {
-  const totalPageCount = Math.ceil(data.totalCount / data.pageSize)
+const Pagination = ({
+  currentPage,
+  totalPages,
+  setCurrentPage,
+}: PaginationProps) => {
   return (
-    <div className="pagination">
+    <div className="pagination content-bottom">
       <h2>
-        Page: {currentPage} of{' '}
-        {Number.isNaN(totalPageCount) ? 0 : totalPageCount}
+        Page: {currentPage} of {totalPages}
       </h2>
       <button
-        disabled={data.page <= 1 ? true : false}
+        disabled={currentPage <= 1}
         onClick={() => {
-          setPage(currentPage - 1)
+          setCurrentPage(currentPage - 1)
         }}
       >
         Previous
       </button>
       <button
-        disabled={data.page >= totalPageCount ? true : false}
+        disabled={currentPage >= totalPages}
         onClick={() => {
-          setPage(currentPage + 1)
+          setCurrentPage(currentPage + 1)
         }}
       >
         Next

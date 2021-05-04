@@ -1,32 +1,40 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, FormEventHandler } from 'react'
 import Card from './Card'
 import Pagination from './Pagination'
-import { isCollected } from 'utils'
+import { fetchCards, debounce } from 'utils'
 
-type SearchPageProps = {
-  collection: Collection
-  dispatch: React.Dispatch<Action>
-}
-
-const SearchPage = ({ collection, dispatch }: SearchPageProps) => {
-  const { cards } = collection
-
+const SearchPage = () => {
   const [formData, setFormData] = useState({
     pokemonName: '',
   })
-  const [responseData, setResponseData] = useState<ResponseDataType>({
+  const [responseData, setResponseData] = useState<ListCardsResponse>({
     data: [],
     page: 1,
-    pageSize: 0,
+    pageSize: 1,
     count: 1,
     totalCount: 0,
   })
-  const [query, setQuery] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoaded, setIsLoaded] = useState(false)
-  const urlEndpoint = `https://api.pokemontcg.io/v2/cards?pageSize=48&page=${currentPage}&q=${query}`
+  const [isError, setIsError] = useState(false)
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const getCards = () => {
+    fetchCards(
+      `https://api.pokemontcg.io/v2/cards?pageSize=48&page=${currentPage}&q=${searchTerm}`
+    )
+      .then((result) => {
+        setResponseData(result)
+        setIsLoaded(true)
+      })
+      .catch((error) => {
+        setTimeout(() => {
+          setIsError(true)
+        }, 1000)
+      })
+  }
+
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
     setFormData((prevFormData) => {
       return {
@@ -34,96 +42,82 @@ const SearchPage = ({ collection, dispatch }: SearchPageProps) => {
         [name]: value,
       }
     })
+    setPage(1)
   }
 
   const setPage = (page: number) => {
+    setIsLoaded(false)
+    setIsError(false)
     setCurrentPage(page)
   }
 
-  async function fetchCards() {
-    await fetch(`${urlEndpoint}`, {
-      method: 'GET',
-      headers: new Headers(),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        //set some states, scroll to top
-        setResponseData({
-          ...response,
-          data: response.data,
-          page: response.page,
-          pageSize: response.pageSize,
-          count: response.count,
-          totalCount: response.totalCount,
-        })
-        setIsLoaded(true)
-        window.scroll({ top: 0, left: 0, behavior: 'smooth' })
-        console.log(urlEndpoint)
-      })
-      .catch((error) => {
-        throw new Error(error)
-      })
-  }
+  useEffect(() => {
+    getCards()
+  }, [])
 
   useEffect(() => {
-    fetchCards()
-  }, [currentPage, query])
+    getCards()
+  }, [searchTerm, currentPage])
+
+  useEffect(() => {
+    debounce(() => {
+      setSearchTerm(
+        formData.pokemonName
+          ? `name:${formData.pokemonName.toLowerCase()}*`
+          : ''
+      )
+    }, 2000)()
+  }, [formData.pokemonName])
 
   return (
     <div className="page-container">
       <h2>Search Page</h2>
-
       <div>
-        <form>
+        <form
+          onKeyDown={(event: React.KeyboardEvent) => {
+            if (event.key === 'Enter') event.preventDefault()
+          }}
+        >
           <input
             placeholder="Card Name"
             name="pokemonName"
-            onChange={onChange}
+            onChange={onInputChange}
             value={formData.pokemonName}
           />
-          <button
-            onClick={(event: React.MouseEvent) => {
-              setCurrentPage(1)
-              setQuery(
-                formData.pokemonName
-                  ? `name:${formData.pokemonName.toLowerCase()}`
-                  : ''
-              )
-              event.preventDefault()
-            }}
-          >
-            Submit
-          </button>
         </form>
         <Pagination
           currentPage={currentPage}
-          data={responseData}
-          setPage={setPage}
+          totalPages={Math.ceil(
+            responseData.totalCount / responseData.pageSize
+          )}
+          setCurrentPage={setPage}
         />
       </div>
-      {!isLoaded ? <div className="loader"></div> : null}
+      {!isLoaded && !isError ? <div className="loader"></div> : null}
       {responseData.count > 0 ? (
-        <div className="grid-container">
+        <div className="card-grid-container">
           {responseData.data.map((cardObject) => {
-            return (
-              <Card
-                key={cardObject.id}
-                cardData={cardObject}
-                isCollected={isCollected(cards, cardObject.id) ? true : false}
-                collection={collection}
-                dispatch={dispatch}
-              />
-            )
+            return <Card key={cardObject.id} cardData={cardObject} />
           })}
         </div>
       ) : (
-        <h2>No Results</h2>
+        <h2 className="content-center">No Results</h2>
       )}
-      <Pagination
-        currentPage={currentPage}
-        data={responseData}
-        setPage={setPage}
-      />
+      {isError ? (
+        <div className="content-center">
+          <h1>Something went wrong</h1>
+          <h1>Please Try Again</h1>
+        </div>
+      ) : null}
+      <div className="position-bottom">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(
+            responseData.totalCount / responseData.pageSize
+          )}
+          setCurrentPage={setPage}
+        />
+      </div>
     </div>
   )
 }

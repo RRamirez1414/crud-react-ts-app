@@ -1,4 +1,4 @@
-type PokemonCardObject = {
+type PokemonCard = {
   id: string
   name: string
   supertype: string
@@ -16,7 +16,7 @@ type PokemonCardObject = {
   }
 }
 
-type ResponseDataType = {
+type ListCardsResponse = {
   data: PokemonCardObject[]
   page: number
   pageSize: number
@@ -25,11 +25,15 @@ type ResponseDataType = {
 }
 
 type Collection = {
-  id: number
-  cards: PokemonCardObject[]
+  cards: PokemonCard[]
+}
+
+type isCollectedArgs = {
+  cards: PokemonCard[]
+  id: string
 }
 
 type Action = {
   type: 'ADD-CARD' | 'DELETE-CARD'
-  newCollection: Collection
+  card: PokemonCard
 }

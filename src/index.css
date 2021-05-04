@@ -2,7 +2,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  margin: 0 0 200px 0;
+  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -30,7 +30,29 @@ figure {
   position: relative;
 }
 
+/************** Generic Class Selectors **************/
+.link-format {
+  color: #f3f3f3;
+  margin-bottom: 3rem;
+}
+
+.page-container {
+  padding: 0 5rem;
+  height: 100%;
+}
+
+.content-center {
+  text-align: center;
+}
+
+.content-bottom {
+  margin: 1rem 0 3rem 0;
+}
+/**************** ***************/
+
 .nav-button {
+  display: inline;
+  margin: 0 2rem;
   text-decoration: none;
   font-size: 2rem;
   font-weight: bold;
@@ -40,21 +62,7 @@ figure {
   color: black;
 }
 
-.link-format {
-  color: #f3f3f3;
-  margin-bottom: 3rem;
-}
-
-.nav-button {
-  display: inline;
-  margin: 0 2rem;
-}
-
-.page-container {
-  padding: 0 5rem;
-}
-
-.grid-container {
+.card-grid-container {
   display: grid;
   grid-template-columns: 25rem 25rem 25rem 25rem;
   padding: 0 5rem;
@@ -63,7 +71,6 @@ figure {
 
 .grid-item {
   margin: 2rem;
-  text-align: center;
 }
 
 .figure-effect {
@@ -89,6 +96,8 @@ figure {
   border-radius: 10px;
   box-shadow: 5px 5px 6px rgb(0 0 0 / 45%);
   transition: transform 0.3s;
+  width: 245px;
+  height: 342px;
 }
 
 .figure-effect:hover .figure-text {
@@ -127,8 +136,8 @@ figure {
   }
 }
 
-@media only screen and (max-width: 2000px) {
-  .grid-container {
+@media only screen and (max-width: 2100px) {
+  .card-grid-container {
     grid-template-columns: 30rem 30rem;
   }
 
@@ -138,7 +147,28 @@ figure {
 
   .figure-effect:hover .figure-text {
     opacity: 1;
-    z-index: 1;
-    transform: scale(1.2) translateX(17rem);
+    z-index: 2;
+    transform: scale(1.2) translateX(2rem);
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .card-grid-container {
+    grid-template-columns: 30rem;
+  }
+
+  .page-container {
+    padding: 0 3rem;
+  }
+
+  .figure-effect:hover .figure-text {
+    opacity: 1;
+    z-index: 2;
+    transform: scale(1.2) translateX(2rem);
+  }
+
+  .nav-button {
+    text-align: center;
+    display: block;
   }
 }

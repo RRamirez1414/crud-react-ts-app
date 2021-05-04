@@ -1,17 +1,17 @@
 const collectionReducer = (collection: Collection, action: Action) => {
-  const { type, newCollection } = action
+  const { type, card } = action
 
   switch (type) {
     case 'ADD-CARD':
       return {
         ...collection,
-        cards: [...newCollection.cards],
+        cards: [...collection.cards, card],
       }
 
     case 'DELETE-CARD':
       return {
         ...collection,
-        cards: [...newCollection.cards],
+        cards: collection.cards.filter((cardItem) => cardItem.id !== card.id),
       }
     default:
       throw new Error(`Action ${type} does not exist in collectionReducer`)

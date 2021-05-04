@@ -13,7 +13,6 @@ const Link = ({ className, href, children }: LinkProps) => {
       href={href}
       onClick={(event: React.MouseEvent) => {
         event.preventDefault()
-        //update url, tell Route URL has changed
         window.history.pushState({}, '', href)
         window.dispatchEvent(new PopStateEvent('popstate'))
       }}
