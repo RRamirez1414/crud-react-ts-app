@@ -28,11 +28,6 @@ type Collection = {
   cards: PokemonCard[]
 }
 
-type isCollectedArgs = {
-  cards: PokemonCard[]
-  id: string
-}
-
 type Action = {
   type: 'ADD-CARD' | 'DELETE-CARD'
   card: PokemonCard

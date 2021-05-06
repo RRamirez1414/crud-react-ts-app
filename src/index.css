@@ -62,6 +62,10 @@ figure {
   color: black;
 }
 
+.search-form {
+  width: fit-content;
+}
+
 .card-grid-container {
   display: grid;
   grid-template-columns: 25rem 25rem 25rem 25rem;
@@ -118,12 +122,13 @@ figure {
 }
 
 .loader {
-  margin: 1rem auto;
-  border: 16px solid #f3f3f3;
+  float: right;
+  margin: auto 1rem;
+  border: 7px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid black;
-  width: 60px;
-  height: 60px;
+  border-top: 7px solid black;
+  width: 15px;
+  height: 15px;
   animation: spin 0.5s linear infinite;
 }
 

@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { MyCollectionContext, isCollected } from 'utils'
+import { isCollected } from 'utils'
+import { useCollection } from 'hooks'
 
 type CardProps = {
   cardData: PokemonCard
 }
 
 const Card = ({ cardData }: CardProps) => {
-  const { dispatch, myCollection } = useContext(MyCollectionContext)
+  const { myCollection, dispatch } = useCollection()
   const [pathname, setPathName] = useState(window.location.pathname)
 
   return (
