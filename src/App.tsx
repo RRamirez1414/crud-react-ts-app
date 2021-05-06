@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SearchPage from './components/SearchPage'
 import MyCollectionsPage from './components/MyCollectionsPage'
 import Route from './components/Route'
 import Link from './components/Link'
+import { CollectionProvider } from 'hooks'
 
 const App = () => {
   return (
@@ -18,12 +19,14 @@ const App = () => {
         </ul>
       </nav>
       <div>
-        <Route path="/">
-          <MyCollectionsPage />
-        </Route>
-        <Route path="/search">
-          <SearchPage />
-        </Route>
+        <CollectionProvider>
+          <Route path="/">
+            <MyCollectionsPage />
+          </Route>
+          <Route path="/search">
+            <SearchPage />
+          </Route>
+        </CollectionProvider>
       </div>
     </div>
   )

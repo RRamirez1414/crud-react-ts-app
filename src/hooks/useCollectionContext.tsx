@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { ReactChild, useReducer } from 'react'
 import { collectionReducer } from 'utils'
 
 const MyCollectionContext = React.createContext<{
@@ -9,7 +9,11 @@ const MyCollectionContext = React.createContext<{
   dispatch: () => undefined,
 })
 
-const CollectionProvider = ({ children }: { children: React.ReactNode }) => {
+const CollectionProvider = ({
+  children,
+}: {
+  children: ReactChild[] | ReactChild
+}) => {
   const [myCollection, dispatch] = useReducer(collectionReducer, {
     cards: [],
   })

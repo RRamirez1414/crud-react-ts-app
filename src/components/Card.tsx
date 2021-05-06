@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState } from 'react'
 import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
 
