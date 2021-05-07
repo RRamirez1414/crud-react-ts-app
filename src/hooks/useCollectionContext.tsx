@@ -1,11 +1,11 @@
 import React, { ReactChild, useReducer } from 'react'
 import { collectionReducer } from 'utils'
 
-const MyCollectionContext = React.createContext<{
-  myCollection: Collection
-  dispatch: React.Dispatch<Action>
+const CollectionContext = React.createContext<{
+  collection: Collection
+  dispatch: React.Dispatch<CollectionAction>
 }>({
-  myCollection: { cards: [] },
+  collection: { cards: [] },
   dispatch: () => undefined,
 })
 
@@ -14,19 +14,19 @@ const CollectionProvider = ({
 }: {
   children: ReactChild[] | ReactChild
 }) => {
-  const [myCollection, dispatch] = useReducer(collectionReducer, {
+  const [collection, dispatch] = useReducer(collectionReducer, {
     cards: [],
   })
 
   return (
-    <MyCollectionContext.Provider value={{ myCollection, dispatch }}>
+    <CollectionContext.Provider value={{ collection, dispatch }}>
       {children}
-    </MyCollectionContext.Provider>
+    </CollectionContext.Provider>
   )
 }
 
 const useCollection = () => {
-  const context = React.useContext(MyCollectionContext)
+  const context = React.useContext(CollectionContext)
   if (context === undefined) {
     throw new Error('useCollection must be used within a CollectionProvider')
   }

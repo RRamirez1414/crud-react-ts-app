@@ -1,4 +1,4 @@
 import { CollectionProvider, useCollection } from './useCollectionContext'
-import { useDebounce } from './useDebounce'
+import { useFormInputDebounce } from './useFormInputDebounce'
 
-export { CollectionProvider, useCollection, useDebounce }
+export { CollectionProvider, useCollection, useFormInputDebounce }

@@ -16,19 +16,11 @@ type PokemonCard = {
   }
 }
 
-type ListCardsResponse = {
-  data: PokemonCardObject[]
-  page: number
-  pageSize: number
-  count: number
-  totalCount: number
-}
-
 type Collection = {
   cards: PokemonCard[]
 }
 
-type Action = {
+type CollectionAction = {
   type: 'ADD-CARD' | 'DELETE-CARD'
   card: PokemonCard
 }

@@ -7,7 +7,7 @@ type CardProps = {
 }
 
 const Card = ({ cardData }: CardProps) => {
-  const { myCollection, dispatch } = useCollection()
+  const { collection, dispatch } = useCollection()
   const [pathname, setPathName] = useState(window.location.pathname)
 
   return (
@@ -40,7 +40,7 @@ const Card = ({ cardData }: CardProps) => {
             </p>
           ) : null}
           <div>
-            {isCollected({ cards: myCollection.cards, id: cardData.id }) ? (
+            {isCollected({ cards: collection.cards, id: cardData.id }) ? (
               <div>
                 {pathname === '/search' ? <p>In Collection</p> : null}
                 <button

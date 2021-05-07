@@ -1,3 +1,11 @@
+export type ListCardsResponse = {
+  data: PokemonCard[]
+  page: number
+  pageSize: number
+  count: number
+  totalCount: number
+}
+
 const fetchCards = (url: string): Promise<ListCardsResponse> => {
   return fetch(url, {
     method: 'GET',

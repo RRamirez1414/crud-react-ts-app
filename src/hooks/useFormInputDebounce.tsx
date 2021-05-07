@@ -6,7 +6,7 @@ import React, { useRef, useEffect } from 'react'
  * @param delay: amount of ms to delay
  * @param dep: dependencies to trigger useEffect in custom hook
  */
-const useDebounce = (
+const useFormInputDebounce = (
   func: React.EffectCallback,
   delay: number | null,
   dep: string[] | boolean[] | number[]
@@ -36,4 +36,4 @@ const useDebounce = (
   }
 }
 
-export { useDebounce }
+export { useFormInputDebounce }

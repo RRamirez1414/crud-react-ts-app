@@ -1,4 +1,7 @@
-const collectionReducer = (collection: Collection, action: Action) => {
+const collectionReducer = (
+  collection: Collection,
+  action: CollectionAction
+) => {
   const { type, card } = action
 
   switch (type) {

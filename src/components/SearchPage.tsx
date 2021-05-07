@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Card from './Card'
 import Pagination from './Pagination'
-import { fetchCards } from 'utils'
-import { useDebounce } from 'hooks'
+import { fetchCards, ListCardsResponse } from 'utils'
+import { useFormInputDebounce } from 'hooks'
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoaded, setIsLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -22,7 +21,7 @@ const SearchPage = () => {
     totalCount: 0,
   })
 
-  const getCards = () => {
+  const getCards = (searchTerm: string) => {
     fetchCards(
       `https://api.pokemontcg.io/v2/cards?pageSize=48&page=${currentPage}&q=${searchTerm}`
     )
@@ -55,13 +54,9 @@ const SearchPage = () => {
     setCurrentPage(page)
   }
 
-  const debounce = useDebounce(
+  const debounce = useFormInputDebounce(
     () => {
-      setSearchTerm(
-        formData.pokemonName
-          ? `name:${formData.pokemonName.toLowerCase()}*`
-          : ''
-      )
+      getCards(`name:${formData.pokemonName.toLowerCase()}*`)
     },
     2000,
     [formData.pokemonName]
@@ -69,8 +64,8 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (null !== inputRef.current) inputRef.current.focus()
-    getCards()
-  }, [currentPage, searchTerm])
+    getCards(`name:${formData.pokemonName.toLowerCase()}*`)
+  }, [currentPage])
 
   return (
     <div className="page-container">
@@ -89,7 +84,7 @@ const SearchPage = () => {
             value={formData.pokemonName}
             ref={inputRef}
           />
-          {!isLoaded && !isError ? <div className="loader"></div> : null}
+          {!isLoaded ? <div className="loader"></div> : null}
         </form>
         <Pagination
           currentPage={currentPage}
