@@ -22,9 +22,7 @@ const SearchPage = () => {
   })
 
   const getCards = (searchTerm: string) => {
-    fetchCards(
-      `https://api.pokemontcg.io/v2/cards?pageSize=48&page=${currentPage}&q=${searchTerm}`
-    )
+    fetchCards(`&page=${currentPage}&q=${searchTerm}`)
       .then((result) => {
         setResponseData(result)
         setIsLoaded(true)
