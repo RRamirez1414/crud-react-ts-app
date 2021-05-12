@@ -17,11 +17,12 @@ const SearchPage = () => {
   const [formData, setFormData] = useState({
     pokemonName: '',
   })
-
+  
   const { isLoading, isError, data } = useQuery<ListCardsResponse, Error>(
     ['cards', searchName, currentPage],
     () => getCards(searchName.toLowerCase(), currentPage)
   )
+
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
