@@ -1,3 +1,5 @@
+import ky from 'ky'
+
 export type ListCardsResponse = {
   data: PokemonCard[]
   page: number
@@ -6,22 +8,11 @@ export type ListCardsResponse = {
   totalCount: number
 }
 
-const fetchCards = (url: string): Promise<ListCardsResponse> => {
-  return fetch(url, {
-    method: 'GET',
-    headers: new Headers(),
-  })
-    .then((response) => response.json())
-    .then((response) => {
-      return {
-        ...response,
-        data: response.data,
-        page: response.page,
-        pageSize: response.pageSize,
-        count: response.count,
-        totalCount: response.totalCount,
-      }
-    })
+const fetchCards = async (searchTerm: string) => {
+  const response: ListCardsResponse = await ky(searchTerm, {
+    prefixUrl: 'https://api.pokemontcg.io/v2/cards?pageSize=48',
+  }).json()
+  return response
 }
 
 export default fetchCards
