@@ -3,36 +3,25 @@ import Card from './Card'
 import Pagination from './Pagination'
 import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
+import { useQuery } from 'react-query'
+
+const getCards = (name: string, currentPage: number) => {
+  return fetchCards(`&page=${currentPage}&q=name:${name}*`)
+}
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const [searchName, setSearchName] = useState('')
   const [formData, setFormData] = useState({
     pokemonName: '',
   })
-  const [responseData, setResponseData] = useState<ListCardsResponse>({
-    data: [],
-    page: 1,
-    pageSize: 1,
-    count: 1,
-    totalCount: 0,
-  })
 
-  const getCards = (searchTerm: string) => {
-    fetchCards(`&page=${currentPage}&q=${searchTerm}`)
-      .then((result) => {
-        setResponseData(result)
-        setIsLoaded(true)
-      })
-      .catch((error) => {
-        setTimeout(() => {
-          setIsError(true)
-        }, 1000)
-      })
-  }
+  const { isLoading, isError, data } = useQuery<ListCardsResponse, Error>(
+    ['cards', searchName, currentPage],
+    () => getCards(searchName.toLowerCase(), currentPage)
+  )
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -43,26 +32,23 @@ const SearchPage = () => {
       }
     })
     setPage(1)
-    debounce()
+    debounceName()
   }
 
   const setPage = (page: number) => {
-    setIsLoaded(false)
-    setIsError(false)
     setCurrentPage(page)
   }
 
-  const debounce = useFormInputDebounce(
+  const debounceName = useFormInputDebounce(
     () => {
-      getCards(`name:${formData.pokemonName.toLowerCase()}*`)
+      setSearchName(formData.pokemonName)
     },
-    2000,
+    1000,
     [formData.pokemonName]
   )
 
   useEffect(() => {
     if (null !== inputRef.current) inputRef.current.focus()
-    getCards(`name:${formData.pokemonName.toLowerCase()}*`)
   }, [currentPage])
 
   return (
@@ -82,39 +68,39 @@ const SearchPage = () => {
             value={formData.pokemonName}
             ref={inputRef}
           />
-          {!isLoaded ? <div className="loader"></div> : null}
+          {isLoading && <div className="loader"></div>}
         </form>
+      </div>
+      {data && (
         <Pagination
           currentPage={currentPage}
-          totalPages={Math.ceil(
-            responseData.totalCount / responseData.pageSize
-          )}
+          totalPages={Math.ceil(data.totalCount / data.pageSize)}
           setCurrentPage={setPage}
         />
-      </div>
-      {responseData.count > 0 ? (
+      )}
+      {data && data.count > 0 ? (
         <div className="card-grid-container">
-          {responseData.data.map((cardObject) => {
+          {data.data.map((cardObject) => {
             return <Card key={cardObject.id} cardData={cardObject} />
           })}
         </div>
       ) : (
         <h2 className="content-center">No Results</h2>
       )}
-      {isError ? (
+      {isError && (
         <div className="content-center">
           <h1>Something went wrong</h1>
           <h1>Please Try Again</h1>
         </div>
-      ) : null}
+      )}
       <div className="position-bottom">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={Math.ceil(
-            responseData.totalCount / responseData.pageSize
-          )}
-          setCurrentPage={setPage}
-        />
+        {data && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(data.totalCount / data.pageSize)}
+            setCurrentPage={setPage}
+          />
+        )}
       </div>
     </div>
   )

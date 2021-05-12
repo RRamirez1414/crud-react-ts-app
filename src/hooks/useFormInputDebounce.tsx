@@ -25,7 +25,9 @@ const useFormInputDebounce = (
   //triggered only when dependency arguments change
   useEffect(() => {
     if (typeof delay === 'number') {
-      timeoutRef.current = window.setTimeout(() => callback.current(), delay)
+      timeoutRef.current = window.setTimeout(() => {
+        callback.current()
+      }, delay)
     }
     return () => window.clearTimeout(timeoutRef.current || 0)
   }, [...dep])
