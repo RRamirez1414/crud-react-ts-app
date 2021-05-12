@@ -42,7 +42,7 @@ const Card = ({ cardData }: CardProps) => {
           <div>
             {isCollected({ cards: collection.cards, id: cardData.id }) ? (
               <div>
-                {pathname === '/search' && <p>In Collection</p>}
+                {pathname === '/search' ? <p>In Collection</p> : null}
                 <button
                   onClick={() => {
                     dispatch({

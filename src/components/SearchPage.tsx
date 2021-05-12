@@ -5,10 +5,6 @@ import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
 
-const getCards = (name: string, currentPage: number) => {
-  return fetchCards(`&page=${currentPage}&q=name:${name}*`)
-}
-
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -17,12 +13,13 @@ const SearchPage = () => {
   const [formData, setFormData] = useState({
     pokemonName: '',
   })
-  
-  const { isLoading, isError, data } = useQuery<ListCardsResponse, Error>(
+  // { isLoading, isError, data }
+  const pokemonNameQuery = useQuery<ListCardsResponse, Error>(
     ['cards', searchName, currentPage],
-    () => getCards(searchName.toLowerCase(), currentPage)
+    () => {
+      return fetchCards(`&page=${currentPage}&q=name:${searchName}*`)
+    }
   )
-
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -69,39 +66,45 @@ const SearchPage = () => {
             value={formData.pokemonName}
             ref={inputRef}
           />
-          {isLoading && <div className="loader"></div>}
+          {pokemonNameQuery.isLoading ? <div className="loader"></div> : null}
         </form>
       </div>
-      {data && (
+      {pokemonNameQuery.data ? (
         <Pagination
           currentPage={currentPage}
-          totalPages={Math.ceil(data.totalCount / data.pageSize)}
+          totalPages={Math.ceil(
+            pokemonNameQuery.data.totalCount / pokemonNameQuery.data.pageSize
+          )}
           setCurrentPage={setPage}
         />
-      )}
-      {data && data.count > 0 ? (
-        <div className="card-grid-container">
-          {data.data.map((cardObject) => {
-            return <Card key={cardObject.id} cardData={cardObject} />
-          })}
-        </div>
-      ) : (
-        <h2 className="content-center">No Results</h2>
-      )}
-      {isError && (
+      ) : null}
+      {pokemonNameQuery.data ? (
+        pokemonNameQuery.data.count > 0 ? (
+          <div className="card-grid-container">
+            {pokemonNameQuery.data.data.map((cardObject) => {
+              return <Card key={cardObject.id} cardData={cardObject} />
+            })}
+          </div>
+        ) : (
+          <h2 className="content-center">No Results</h2>
+        )
+      ) : null}
+      {pokemonNameQuery.isError ? (
         <div className="content-center">
           <h1>Something went wrong</h1>
           <h1>Please Try Again</h1>
         </div>
-      )}
+      ) : null}
       <div className="position-bottom">
-        {data && (
+        {pokemonNameQuery.data ? (
           <Pagination
             currentPage={currentPage}
-            totalPages={Math.ceil(data.totalCount / data.pageSize)}
+            totalPages={Math.ceil(
+              pokemonNameQuery.data.totalCount / pokemonNameQuery.data.pageSize
+            )}
             setCurrentPage={setPage}
           />
-        )}
+        ) : null}
       </div>
     </div>
   )
