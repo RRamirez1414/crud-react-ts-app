@@ -10,8 +10,8 @@ const queryClient = new QueryClient()
 const App = () => {
   return (
     <div className="App">
-      <nav>
-        <ul>
+      <nav className="bg-gradient-to-r from-blue-300 to-purple-300 py-16">
+        <ul className="m-0 list-none">
           <Link className="nav-button" to="/">
             My Collection
           </Link>

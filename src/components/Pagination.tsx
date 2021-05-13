@@ -12,25 +12,28 @@ const Pagination = ({
   setCurrentPage,
 }: PaginationProps) => {
   return (
-    <div className="pagination content-bottom">
+    <div className="text-2xl text-center block mx-0 mt-4 mb-12">
       <h2>
-        Page: {currentPage} of {totalPages}
+        Page: <h2 className="inline font-bold">{currentPage}</h2> of{' '}
+        <h2 className="inline font-bold">{totalPages}</h2>
       </h2>
       <button
+        className="btn"
         disabled={currentPage <= 1}
         onClick={() => {
           setCurrentPage(currentPage - 1)
         }}
       >
-        Previous
+        &lt;
       </button>
       <button
+        className="btn"
         disabled={currentPage >= totalPages}
         onClick={() => {
           setCurrentPage(currentPage + 1)
         }}
       >
-        Next
+        &gt;
       </button>
     </div>
   )
