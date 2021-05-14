@@ -11,10 +11,27 @@ const Card = ({ cardData }: CardProps) => {
   const [pathname, setPathName] = useState(window.location.pathname)
 
   return (
-    <div className="grid-item content-center">
-      <figure className="figure-effect">
-        <img src={cardData.images.small} className="card-img" />
-        <figcaption className="figure-text">
+    <div className="m-8 text-center">
+      <figure className="relative rounded-xl figure-effect">
+        <img
+          src={cardData.images.small}
+          className="figure-img rounded-xl custom-box-shadow  w-64 h-80 transition-all"
+        />
+        <figcaption
+          className="figure-text 
+        text-white 
+        bg-gray-800 
+        p-8
+        absolute 
+        object-left 
+        top-0 h-full 
+        w-72 
+        opacity-0 
+        rounded-lg 
+        custom-box-shadow 
+        transition-all 
+        duration-300"
+        >
           <span className="figure-inner-text">
             <p>
               Name: <strong>{cardData.name}</strong>
@@ -30,7 +47,7 @@ const Card = ({ cardData }: CardProps) => {
           {cardData.tcgplayer ? (
             <p>
               <a
-                className="link-format"
+                className="mb-12 text-gray-100 hover:underline"
                 target="_blank"
                 rel="noreferrer"
                 href={cardData.tcgplayer.url}
@@ -44,6 +61,7 @@ const Card = ({ cardData }: CardProps) => {
               <div>
                 {pathname === '/search' ? <p>In Collection</p> : null}
                 <button
+                  className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600 hover:shadow-lg"
                   onClick={() => {
                     dispatch({
                       type: 'DELETE-CARD',
@@ -56,6 +74,7 @@ const Card = ({ cardData }: CardProps) => {
               </div>
             ) : (
               <button
+                className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600 hover:shadow-lg"
                 onClick={() => {
                   dispatch({
                     type: 'ADD-CARD',

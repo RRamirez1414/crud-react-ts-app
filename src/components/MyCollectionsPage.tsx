@@ -20,7 +20,7 @@ const MyCollectionsPage = () => {
   }, [])
   return (
     <div className="page-container">
-      <h1>My Collection</h1>
+      <h1 className="text-2xl my-4">My Collection</h1>
       <Collection />
     </div>
   )

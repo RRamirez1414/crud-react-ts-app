@@ -51,24 +51,30 @@ const SearchPage = () => {
 
   return (
     <div className="page-container">
-      <h2>Search Page</h2>
-      <div>
-        <form
-          className="search-form"
-          onKeyDown={(event: React.KeyboardEvent) => {
-            if (event.key === 'Enter') event.preventDefault()
-          }}
-        >
-          <input
-            placeholder="Card Name"
-            name="pokemonName"
-            onChange={onInputChange}
-            value={formData.pokemonName}
-            ref={inputRef}
+      <h2 className="text-2xl my-4">Search Page</h2>
+
+      <form
+        className="w-full inline"
+        onKeyDown={(event: React.KeyboardEvent) => {
+          if (event.key === 'Enter') event.preventDefault()
+        }}
+      >
+        <input
+          className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Card Name"
+          name="pokemonName"
+          onChange={onInputChange}
+          value={formData.pokemonName}
+          ref={inputRef}
+        />
+        {pokemonNameQuery.isLoading ? (
+          <img
+            src="./loading-process.svg"
+            className="inline-block animate-spin h-6 w-6 mx-4"
           />
-          {pokemonNameQuery.isLoading ? <div className="loader"></div> : null}
-        </form>
-      </div>
+        ) : null}
+      </form>
+
       {pokemonNameQuery.data ? (
         <Pagination
           currentPage={currentPage}
@@ -86,11 +92,11 @@ const SearchPage = () => {
             })}
           </div>
         ) : (
-          <h2 className="content-center">No Results</h2>
+          <h2 className="text-center">No Results</h2>
         )
       ) : null}
       {pokemonNameQuery.isError ? (
-        <div className="content-center">
+        <div className="text-center">
           <h1>Something went wrong</h1>
           <h1>Please Try Again</h1>
         </div>
