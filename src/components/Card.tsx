@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
+import {
+  StyledFigure,
+  StyledFigureImage,
+  StyledFigCaption,
+  StyledFigButton,
+} from 'styles'
+import 'twin.macro'
 
 type CardProps = {
   cardData: PokemonCard
@@ -11,32 +18,15 @@ const Card = ({ cardData }: CardProps) => {
   const [pathname, setPathName] = useState(window.location.pathname)
 
   return (
-    <div className="m-8 text-center">
-      <figure className="relative rounded-xl figure-effect">
-        <img
-          src={cardData.images.small}
-          className="figure-img rounded-xl custom-box-shadow  w-64 h-80 transition-all"
-        />
-        <figcaption
-          className="figure-text 
-        text-white 
-        bg-gray-800 
-        p-8
-        absolute 
-        object-left 
-        top-0 h-full 
-        w-72 
-        opacity-0 
-        rounded-lg 
-        custom-box-shadow 
-        transition-all 
-        duration-300"
-        >
-          <span className="figure-inner-text">
+    <div tw="m-8 text-center">
+      <StyledFigure className=" figure-effect">
+        <StyledFigureImage className="figure-img" src={cardData.images.small} />
+        <StyledFigCaption className="figure-text">
+          <span>
             <p>
               Name: <strong>{cardData.name}</strong>
             </p>
-            <p>Set Release Date: {cardData.set.releaseDate}</p>
+            <p>Set: {cardData.set.name}</p>
             <p>
               Types:{' '}
               {cardData.types?.map((type) => (
@@ -47,7 +37,7 @@ const Card = ({ cardData }: CardProps) => {
           {cardData.tcgplayer ? (
             <p>
               <a
-                className="mb-12 text-gray-100 hover:underline"
+                tw="mb-12 text-gray-100 hover:underline"
                 target="_blank"
                 rel="noreferrer"
                 href={cardData.tcgplayer.url}
@@ -60,8 +50,8 @@ const Card = ({ cardData }: CardProps) => {
             {isCollected({ cards: collection.cards, id: cardData.id }) ? (
               <div>
                 {pathname === '/search' ? <p>In Collection</p> : null}
-                <button
-                  className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600 hover:shadow-lg"
+                <StyledFigButton
+                  isAdded
                   onClick={() => {
                     dispatch({
                       type: 'DELETE-CARD',
@@ -70,11 +60,10 @@ const Card = ({ cardData }: CardProps) => {
                   }}
                 >
                   DELETE
-                </button>
+                </StyledFigButton>
               </div>
             ) : (
-              <button
-                className="focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600 hover:shadow-lg"
+              <StyledFigButton
                 onClick={() => {
                   dispatch({
                     type: 'ADD-CARD',
@@ -83,12 +72,12 @@ const Card = ({ cardData }: CardProps) => {
                 }}
               >
                 Add To Collection
-              </button>
+              </StyledFigButton>
             )}
           </div>
           <p>{cardData.flavorText}</p>
-        </figcaption>
-      </figure>
+        </StyledFigCaption>
+      </StyledFigure>
     </div>
   )
 }

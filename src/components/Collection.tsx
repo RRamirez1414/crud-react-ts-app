@@ -1,16 +1,17 @@
 import React from 'react'
 import Card from 'components/Card'
 import { useCollection } from 'hooks'
+import { StyledGrid } from 'styles'
 
 const Collection = () => {
   const { collection } = useCollection()
 
   return (
-    <div className="card-grid-container">
+    <StyledGrid>
       {collection.cards.map((cardObject) => {
         return <Card key={cardObject.id} cardData={cardObject} />
       })}
-    </div>
+    </StyledGrid>
   )
 }
 

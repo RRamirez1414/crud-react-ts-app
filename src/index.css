@@ -3,30 +3,8 @@
 @tailwind utilities;
 @tailwind screens;
 
-@layer utilities {
-  .custom-box-shadow {
-    box-shadow: 5px 5px 6px rgb(0 0 0 / 45%);
-  }
-}
-
 html {
   scroll-behavior: smooth;
-}
-
-.page-container {
-  @apply px-20 h-full;
-}
-
-.btn {
-  @apply bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full;
-}
-
-.nav-button {
-  @apply inline my-0 mx-8 no-underline text-3xl font-semibold;
-}
-
-.card-grid-container {
-  @apply grid grid-cols-2 px-40 justify-items-center;
 }
 
 .figure-effect:hover .figure-text {
@@ -38,10 +16,6 @@ html {
 }
 
 @screen 2xl {
-  .card-grid-container {
-    @apply grid grid-cols-4 px-40 justify-items-center;
-  }
-
   .figure-effect:hover .figure-text {
     @apply opacity-100 z-10 transform translate-x-64 scale-110;
   }

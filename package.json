@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@types/autoprefixer": "^10.2.0",
+    "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "autoprefixer": "^9.8.6",
@@ -56,6 +57,14 @@
     "postcss": "^7.0.35",
     "prettier": "2.2.1",
     "react-query": "^3.16.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2"
+    "styled-components": "^5.3.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2",
+    "twin.macro": "^2.4.1"
+  },
+  "babelMacros": {
+    "twin": {
+      "config": "./tailwind.config.js",
+      "preset": "styled-components"
+    }
   }
 }

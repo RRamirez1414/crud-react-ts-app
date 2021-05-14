@@ -4,6 +4,14 @@ import Pagination from './Pagination'
 import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
+import {
+  StyledPageTitle,
+  StyledPageContainer,
+  StyledGrid,
+  StyledLoader,
+  StyledSearchInput,
+} from 'styles'
+import 'twin.macro'
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -50,8 +58,8 @@ const SearchPage = () => {
   }, [currentPage])
 
   return (
-    <div className="page-container">
-      <h2 className="text-2xl my-4">Search Page</h2>
+    <StyledPageContainer>
+      <StyledPageTitle>Search Page</StyledPageTitle>
 
       <form
         className="w-full inline"
@@ -59,8 +67,7 @@ const SearchPage = () => {
           if (event.key === 'Enter') event.preventDefault()
         }}
       >
-        <input
-          className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        <StyledSearchInput
           placeholder="Card Name"
           name="pokemonName"
           onChange={onInputChange}
@@ -68,10 +75,7 @@ const SearchPage = () => {
           ref={inputRef}
         />
         {pokemonNameQuery.isLoading ? (
-          <img
-            src="./loading-process.svg"
-            className="inline-block animate-spin h-6 w-6 mx-4"
-          />
+          <StyledLoader src="./loading-process.svg" />
         ) : null}
       </form>
 
@@ -86,17 +90,17 @@ const SearchPage = () => {
       ) : null}
       {pokemonNameQuery.data ? (
         pokemonNameQuery.data.count > 0 ? (
-          <div className="card-grid-container">
+          <StyledGrid>
             {pokemonNameQuery.data.data.map((cardObject) => {
               return <Card key={cardObject.id} cardData={cardObject} />
             })}
-          </div>
+          </StyledGrid>
         ) : (
-          <h2 className="text-center">No Results</h2>
+          <h2 tw="text-center">No Results</h2>
         )
       ) : null}
       {pokemonNameQuery.isError ? (
-        <div className="text-center">
+        <div tw="text-center">
           <h1>Something went wrong</h1>
           <h1>Please Try Again</h1>
         </div>
@@ -112,7 +116,7 @@ const SearchPage = () => {
           />
         ) : null}
       </div>
-    </div>
+    </StyledPageContainer>
   )
 }
 

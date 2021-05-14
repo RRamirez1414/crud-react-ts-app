@@ -1,4 +1,5 @@
 import React from 'react'
+import { StyledPaginatedButton } from 'styles'
 
 type PaginationProps = {
   currentPage: number
@@ -17,7 +18,7 @@ const Pagination = ({
         Page: <h2 className="inline font-bold">{currentPage}</h2> of{' '}
         <h2 className="inline font-bold">{totalPages}</h2>
       </h2>
-      <button
+      <StyledPaginatedButton
         className="btn"
         disabled={currentPage <= 1}
         onClick={() => {
@@ -25,8 +26,8 @@ const Pagination = ({
         }}
       >
         &lt;
-      </button>
-      <button
+      </StyledPaginatedButton>
+      <StyledPaginatedButton
         className="btn"
         disabled={currentPage >= totalPages}
         onClick={() => {
@@ -34,7 +35,7 @@ const Pagination = ({
         }}
       >
         &gt;
-      </button>
+      </StyledPaginatedButton>
     </div>
   )
 }
