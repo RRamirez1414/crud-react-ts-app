@@ -1,5 +1,6 @@
 import React from 'react'
 import tw from 'twin.macro'
+import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
 
 type PaginationProps = {
   currentPage: number
@@ -23,7 +24,7 @@ const Pagination = ({
           setCurrentPage(currentPage - 1)
         }}
       >
-        &lt;
+        <AiFillCaretLeft />
       </PaginatedButton>
       <PaginatedButton
         disabled={currentPage >= totalPages}
@@ -31,7 +32,7 @@ const Pagination = ({
           setCurrentPage(currentPage + 1)
         }}
       >
-        &gt;
+        <AiFillCaretRight />
       </PaginatedButton>
     </PaginatedContainer>
   )

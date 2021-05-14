@@ -5,6 +5,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { CollectionProvider } from 'hooks'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { ImSearch } from 'react-icons/im'
+import { HiCollection } from 'react-icons/hi'
 import tw from 'twin.macro'
 
 const queryClient = new QueryClient()

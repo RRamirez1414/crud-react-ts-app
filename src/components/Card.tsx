@@ -3,6 +3,7 @@ import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
 import tw from 'twin.macro'
 import styled from 'styled-components'
+import { HiPlus } from 'react-icons/hi'
 
 type CardProps = {
   cardData: PokemonCard
@@ -65,7 +66,7 @@ const Card = ({ cardData }: CardProps) => {
                   })
                 }}
               >
-                Add To Collection
+                <HiPlus />
               </FigButton>
             )}
           </div>
@@ -111,10 +112,10 @@ const FigCaption = tw.figcaption`
 const FigButton = styled.button<{ isAdded?: boolean }>`
   ${tw`focus:outline-none 
   text-white 
-  text-sm 
+  text-lg 
   py-2.5 
   px-5 
-  rounded-md
+  rounded-full
   hover:shadow-lg
   `}
 
@@ -123,10 +124,10 @@ const FigButton = styled.button<{ isAdded?: boolean }>`
       return tw`     
       bg-red-500 
       hover:bg-red-600 
-      hover:shadow-lg
       `
     }
     return tw`
+    text-3xl
     bg-blue-500 
     hover:bg-blue-600 
     `
