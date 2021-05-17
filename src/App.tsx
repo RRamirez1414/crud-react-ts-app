@@ -5,12 +5,13 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { CollectionProvider } from 'hooks'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { StyledNav, StyledNavLink } from './styles'
+import tw, { styled } from 'twin.macro'
+
 const queryClient = new QueryClient()
 
 const App = () => {
   return (
-    <div className="App">
+    <div>
       <StyledNav>
         <ul tw="m-0 list-none">
           <Link to="/">
@@ -36,3 +37,11 @@ const App = () => {
   )
 }
 export default App
+
+const StyledNav = styled.nav`
+  ${tw`bg-gradient-to-r from-blue-300 to-purple-300 py-16`}
+`
+
+const StyledNavLink = styled.a`
+  ${tw`inline my-0 mx-8 no-underline text-3xl font-semibold`}
+`

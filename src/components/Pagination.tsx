@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyledPaginatedButton } from 'styles'
+import tw from 'twin.macro'
+import styled from 'styled-components'
 
 type PaginationProps = {
   currentPage: number
@@ -13,31 +14,33 @@ const Pagination = ({
   setCurrentPage,
 }: PaginationProps) => {
   return (
-    <div className="text-2xl text-center block mx-0 mt-4 mb-12">
+    <div tw="text-2xl text-center block mx-0 mt-4 mb-12">
       <h2>
-        Page: <h2 className="inline font-bold">{currentPage}</h2> of{' '}
-        <h2 className="inline font-bold">{totalPages}</h2>
+        Page: <h2 tw="inline font-bold">{currentPage}</h2> of{' '}
+        <h2 tw="inline font-bold">{totalPages}</h2>
       </h2>
-      <StyledPaginatedButton
-        className="btn"
+      <PaginatedButton
         disabled={currentPage <= 1}
         onClick={() => {
           setCurrentPage(currentPage - 1)
         }}
       >
         &lt;
-      </StyledPaginatedButton>
-      <StyledPaginatedButton
-        className="btn"
+      </PaginatedButton>
+      <PaginatedButton
         disabled={currentPage >= totalPages}
         onClick={() => {
           setCurrentPage(currentPage + 1)
         }}
       >
         &gt;
-      </StyledPaginatedButton>
+      </PaginatedButton>
     </div>
   )
 }
 
 export default Pagination
+
+const PaginatedButton = styled.button`
+  ${tw`bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full`}
+`

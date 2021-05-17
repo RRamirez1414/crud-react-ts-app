@@ -1,17 +1,17 @@
 import React from 'react'
 import Card from 'components/Card'
+import CardGrid from 'components/CardGrid'
 import { useCollection } from 'hooks'
-import { StyledGrid } from 'styles'
 
 const Collection = () => {
   const { collection } = useCollection()
 
   return (
-    <StyledGrid>
+    <CardGrid>
       {collection.cards.map((cardObject) => {
         return <Card key={cardObject.id} cardData={cardObject} />
       })}
-    </StyledGrid>
+    </CardGrid>
   )
 }
 

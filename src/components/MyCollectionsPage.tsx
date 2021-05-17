@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import Collection from 'components/Collection'
+import Collection from './Collection'
+import PageTitle from './PageTitle'
+import PageContainer from './Container'
 import { useCollection } from 'hooks'
 import { fetchCards } from 'utils'
-import { StyledPageTitle, StyledPageContainer } from 'styles'
 
 const MyCollectionsPage = () => {
   const { collection, dispatch } = useCollection()
@@ -20,10 +21,10 @@ const MyCollectionsPage = () => {
     }
   }, [])
   return (
-    <StyledPageContainer>
-      <StyledPageTitle>My Collection</StyledPageTitle>
+    <PageContainer>
+      <PageTitle>My Collection</PageTitle>
       <Collection />
-    </StyledPageContainer>
+    </PageContainer>
   )
 }
 

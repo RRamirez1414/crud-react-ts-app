@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Card from './Card'
+import CardGrid from './CardGrid'
+import PageTitle from './PageTitle'
+import PageContainer from './Container'
 import Pagination from './Pagination'
 import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
-import {
-  StyledPageTitle,
-  StyledPageContainer,
-  StyledGrid,
-  StyledLoader,
-  StyledSearchInput,
-} from 'styles'
-import 'twin.macro'
+import tw from 'twin.macro'
+import styled from 'styled-components'
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -21,7 +18,7 @@ const SearchPage = () => {
   const [formData, setFormData] = useState({
     pokemonName: '',
   })
-  // { isLoading, isError, data }
+
   const pokemonNameQuery = useQuery<ListCardsResponse, Error>(
     ['cards', searchName, currentPage],
     () => {
@@ -58,11 +55,11 @@ const SearchPage = () => {
   }, [currentPage])
 
   return (
-    <StyledPageContainer>
-      <StyledPageTitle>Search Page</StyledPageTitle>
+    <PageContainer>
+      <PageTitle>Search Page</PageTitle>
 
       <form
-        className="w-full inline"
+        tw="w-full inline"
         onKeyDown={(event: React.KeyboardEvent) => {
           if (event.key === 'Enter') event.preventDefault()
         }}
@@ -90,11 +87,11 @@ const SearchPage = () => {
       ) : null}
       {pokemonNameQuery.data ? (
         pokemonNameQuery.data.count > 0 ? (
-          <StyledGrid>
+          <CardGrid>
             {pokemonNameQuery.data.data.map((cardObject) => {
               return <Card key={cardObject.id} cardData={cardObject} />
             })}
-          </StyledGrid>
+          </CardGrid>
         ) : (
           <h2 tw="text-center">No Results</h2>
         )
@@ -105,7 +102,7 @@ const SearchPage = () => {
           <h1>Please Try Again</h1>
         </div>
       ) : null}
-      <div className="position-bottom">
+      <div tw="align-text-bottom">
         {pokemonNameQuery.data ? (
           <Pagination
             currentPage={currentPage}
@@ -116,8 +113,15 @@ const SearchPage = () => {
           />
         ) : null}
       </div>
-    </StyledPageContainer>
+    </PageContainer>
   )
 }
 
 export default SearchPage
+
+const StyledSearchInput = styled.input`
+  ${tw`shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
+`
+const StyledLoader = styled.img`
+  ${tw`inline-block animate-spin h-6 w-6 mx-4`}
+`

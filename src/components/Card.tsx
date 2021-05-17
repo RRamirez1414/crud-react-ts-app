@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
 import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
-import {
-  StyledFigure,
-  StyledFigureImage,
-  StyledFigCaption,
-  StyledFigButton,
-} from 'styles'
-import 'twin.macro'
+import tw, { css } from 'twin.macro'
+import styled from 'styled-components'
 
 type CardProps = {
   cardData: PokemonCard
@@ -19,9 +14,9 @@ const Card = ({ cardData }: CardProps) => {
 
   return (
     <div tw="m-8 text-center">
-      <StyledFigure className=" figure-effect">
-        <StyledFigureImage className="figure-img" src={cardData.images.small} />
-        <StyledFigCaption className="figure-text">
+      <Figure css={[figEffectHover]}>
+        <FigImage src={cardData.images.small} />
+        <FigCaption>
           <span>
             <p>
               Name: <strong>{cardData.name}</strong>
@@ -50,7 +45,7 @@ const Card = ({ cardData }: CardProps) => {
             {isCollected({ cards: collection.cards, id: cardData.id }) ? (
               <div>
                 {pathname === '/search' ? <p>In Collection</p> : null}
-                <StyledFigButton
+                <FigButton
                   isAdded
                   onClick={() => {
                     dispatch({
@@ -60,10 +55,10 @@ const Card = ({ cardData }: CardProps) => {
                   }}
                 >
                   DELETE
-                </StyledFigButton>
+                </FigButton>
               </div>
             ) : (
-              <StyledFigButton
+              <FigButton
                 onClick={() => {
                   dispatch({
                     type: 'ADD-CARD',
@@ -72,14 +67,57 @@ const Card = ({ cardData }: CardProps) => {
                 }}
               >
                 Add To Collection
-              </StyledFigButton>
+              </FigButton>
             )}
           </div>
           <p>{cardData.flavorText}</p>
-        </StyledFigCaption>
-      </StyledFigure>
+        </FigCaption>
+      </Figure>
     </div>
   )
 }
 
 export default Card
+
+const Figure = styled.figure`
+  ${tw`relative rounded-xl overflow-hidden h-full`}
+`
+
+const FigImage = styled.img`
+  ${tw`rounded-xl 
+  w-64 
+  h-80 
+  transition-all 
+  absolute 
+  object-left
+  transform
+  duration-700
+  `}
+  box-shadow: 5px 5px 6px rgb(0 0 0 / 45%)
+`
+const FigCaption = styled.figcaption`
+  ${tw`text-white 
+  bg-gray-800 
+  p-8 
+  top-0 
+  h-80 
+  w-64
+  rounded-lg  
+`}
+  box-shadow: 5px 5px 6px rgb(0 0 0 / 45%)
+`
+
+const FigButton = styled.button<{ isAdded?: boolean }>`
+  ${({ isAdded }) => {
+    if (isAdded) {
+      return tw`focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600 hover:shadow-lg`
+    }
+    return tw`focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600 hover:shadow-lg`
+  }}
+`
+
+const figEffectHover = css`
+  &:hover img {
+    ${tw`motion-safe:translate-x-64`}
+  }
+`
