@@ -7,12 +7,12 @@ type Props = {
 }
 
 const CardGrid = ({ children }: Props) => {
-  return <StyledGrid>{children}</StyledGrid>
+  return <Grid>{children}</Grid>
 }
 
 export default CardGrid
 
-const StyledGrid = styled.div`
+const Grid = styled.div`
   ${tw`grid grid-cols-1 px-40 justify-items-center`}
 
   @media (min-width: 1000px) {

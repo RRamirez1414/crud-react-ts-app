@@ -12,16 +12,16 @@ const queryClient = new QueryClient()
 const App = () => {
   return (
     <div>
-      <StyledNav>
+      <Nav>
         <ul tw="m-0 list-none">
           <Link to="/">
-            <StyledNavLink>My Collection</StyledNavLink>
+            <NavLink>My Collection</NavLink>
           </Link>
           <Link to="/search">
-            <StyledNavLink>Search</StyledNavLink>
+            <NavLink>Search</NavLink>
           </Link>
         </ul>
-      </StyledNav>
+      </Nav>
       <div>
         <CollectionProvider>
           <Routes>
@@ -38,10 +38,10 @@ const App = () => {
 }
 export default App
 
-const StyledNav = styled.nav`
+const Nav = styled.nav`
   ${tw`bg-gradient-to-r from-blue-300 to-purple-300 py-16`}
 `
 
-const StyledNavLink = styled.a`
+const NavLink = styled.a`
   ${tw`inline my-0 mx-8 no-underline text-3xl font-semibold`}
 `

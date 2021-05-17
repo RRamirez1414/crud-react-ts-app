@@ -64,7 +64,7 @@ const SearchPage = () => {
           if (event.key === 'Enter') event.preventDefault()
         }}
       >
-        <StyledSearchInput
+        <SearchInput
           placeholder="Card Name"
           name="pokemonName"
           onChange={onInputChange}
@@ -72,7 +72,7 @@ const SearchPage = () => {
           ref={inputRef}
         />
         {pokemonNameQuery.isLoading ? (
-          <StyledLoader src="./loading-process.svg" />
+          <Loader src="./loading-process.svg" />
         ) : null}
       </form>
 
@@ -119,9 +119,9 @@ const SearchPage = () => {
 
 export default SearchPage
 
-const StyledSearchInput = styled.input`
+const SearchInput = styled.input`
   ${tw`shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
 `
-const StyledLoader = styled.img`
+const Loader = styled.img`
   ${tw`inline-block animate-spin h-6 w-6 mx-4`}
 `
