@@ -7,6 +7,7 @@ import Pagination from './Pagination'
 import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
+import { CgPokemon } from 'react-icons/cg'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 
@@ -72,7 +73,7 @@ const SearchPage = () => {
           ref={inputRef}
         />
         {pokemonNameQuery.isLoading ? (
-          <Loader src="./loading-process.svg" />
+          <CgPokemon tw="inline-block animate-spin h-8 w-8 mx-4" />
         ) : null}
       </form>
 
@@ -93,11 +94,11 @@ const SearchPage = () => {
             })}
           </CardGrid>
         ) : (
-          <h2 tw="text-center">No Results</h2>
+          <h2 tw="text-center font-bold text-4xl">No Results</h2>
         )
       ) : null}
       {pokemonNameQuery.isError ? (
-        <div tw="text-center">
+        <div tw="text-center font-bold text-4xl">
           <h1>Something went wrong</h1>
           <h1>Please Try Again</h1>
         </div>
@@ -122,6 +123,6 @@ export default SearchPage
 const SearchInput = styled.input`
   ${tw`shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
 `
-const Loader = styled.img`
+const Loader = styled.svg`
   ${tw`inline-block animate-spin h-6 w-6 mx-4`}
 `

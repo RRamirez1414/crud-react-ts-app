@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+
+html {
+  scroll-behavior: smooth;
+}
+
+.figure-effect:hover .figure-text {
+  @apply opacity-100 z-30 transform translate-x-0 scale-110;
+}
+
+.figure-effect:hover .figure-img {
+  @apply z-20 sticky transform scale-110;
+}
+
+@screen 2xl {
+  .figure-effect:hover .figure-text {
+    @apply opacity-100 z-10 transform translate-x-64 scale-110;
+  }
+}

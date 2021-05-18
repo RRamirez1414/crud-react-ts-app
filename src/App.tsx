@@ -5,6 +5,8 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { CollectionProvider } from 'hooks'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import { ImSearch } from 'react-icons/im'
+import { HiCollection } from 'react-icons/hi'
 import tw, { styled } from 'twin.macro'
 
 const queryClient = new QueryClient()
@@ -15,10 +17,14 @@ const App = () => {
       <Nav>
         <ul tw="m-0 list-none">
           <Link to="/">
-            <NavLink>My Collection</NavLink>
+            <NavLink>
+              My Collection <HiCollection tw="inline-block align-bottom" />
+            </NavLink>
           </Link>
           <Link to="/search">
-            <NavLink>Search</NavLink>
+            <NavLink>
+              Search <ImSearch tw="inline-block align-top" />
+            </NavLink>
           </Link>
         </ul>
       </Nav>
