@@ -109,28 +109,26 @@ const FigCaption = tw.figcaption`
 `
 
 const FigButton = styled.button<{ isAdded?: boolean }>`
+  ${tw`focus:outline-none 
+  text-white 
+  text-sm 
+  py-2.5 
+  px-5 
+  rounded-md
+  hover:shadow-lg
+  `}
+
   ${({ isAdded }) => {
     if (isAdded) {
-      return tw`focus:outline-none 
-      text-white 
-      text-sm 
-      py-2.5 
-      px-5 
-      rounded-md 
+      return tw`     
       bg-red-500 
       hover:bg-red-600 
       hover:shadow-lg
       `
     }
-    return tw`focus:outline-none 
-    text-white 
-    text-sm 
-    py-2.5 
-    px-5 
-    rounded-md 
+    return tw`
     bg-blue-500 
     hover:bg-blue-600 
-    hover:shadow-lg
     `
   }}
 `
