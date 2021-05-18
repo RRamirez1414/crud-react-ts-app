@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Card from './Card'
+import CardGrid from './CardGrid'
+import PageTitle from './PageTitle'
+import PageContainer from './Container'
 import Pagination from './Pagination'
 import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
+import tw from 'twin.macro'
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -13,7 +17,7 @@ const SearchPage = () => {
   const [formData, setFormData] = useState({
     pokemonName: '',
   })
-  // { isLoading, isError, data }
+
   const pokemonNameQuery = useQuery<ListCardsResponse, Error>(
     ['cards', searchName, currentPage],
     () => {
@@ -50,17 +54,15 @@ const SearchPage = () => {
   }, [currentPage])
 
   return (
-    <div className="page-container">
-      <h2 className="text-2xl my-4">Search Page</h2>
+    <PageContainer>
+      <PageTitle>Search Page</PageTitle>
 
-      <form
-        className="w-full inline"
+      <Form
         onKeyDown={(event: React.KeyboardEvent) => {
           if (event.key === 'Enter') event.preventDefault()
         }}
       >
-        <input
-          className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        <SearchInput
           placeholder="Card Name"
           name="pokemonName"
           onChange={onInputChange}
@@ -68,12 +70,9 @@ const SearchPage = () => {
           ref={inputRef}
         />
         {pokemonNameQuery.isLoading ? (
-          <img
-            src="./loading-process.svg"
-            className="inline-block animate-spin h-6 w-6 mx-4"
-          />
+          <Loader src="./loading-process.svg" />
         ) : null}
-      </form>
+      </Form>
 
       {pokemonNameQuery.data ? (
         <Pagination
@@ -86,22 +85,22 @@ const SearchPage = () => {
       ) : null}
       {pokemonNameQuery.data ? (
         pokemonNameQuery.data.count > 0 ? (
-          <div className="card-grid-container">
+          <CardGrid>
             {pokemonNameQuery.data.data.map((cardObject) => {
               return <Card key={cardObject.id} cardData={cardObject} />
             })}
-          </div>
+          </CardGrid>
         ) : (
-          <h2 className="text-center">No Results</h2>
+          <H2>No Results</H2>
         )
       ) : null}
       {pokemonNameQuery.isError ? (
-        <div className="text-center">
+        <ErrorContainer>
           <h1>Something went wrong</h1>
           <h1>Please Try Again</h1>
-        </div>
+        </ErrorContainer>
       ) : null}
-      <div className="position-bottom">
+      <PaginationBottom>
         {pokemonNameQuery.data ? (
           <Pagination
             currentPage={currentPage}
@@ -111,9 +110,30 @@ const SearchPage = () => {
             setCurrentPage={setPage}
           />
         ) : null}
-      </div>
-    </div>
+      </PaginationBottom>
+    </PageContainer>
   )
 }
 
 export default SearchPage
+
+const SearchInput = tw.input`shadow 
+appearance-none 
+border 
+rounded 
+w-1/4 
+py-2 
+px-3 
+text-gray-700 
+leading-tight 
+focus:outline-none
+`
+const Form = tw.form`w-full inline`
+
+const H2 = tw.h2`text-center`
+
+const ErrorContainer = tw.div`text-center`
+
+const PaginationBottom = tw.div`align-text-bottom`
+
+const Loader = tw.img`inline-block animate-spin h-6 w-6 mx-4`

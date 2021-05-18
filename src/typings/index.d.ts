@@ -8,7 +8,7 @@ type PokemonCard = {
     large: string
   }
   set: {
-    releaseDate: string
+    name: string
   }
   flavorText: string
   tcgplayer?: {

@@ -1,4 +1,5 @@
 import React from 'react'
+import tw from 'twin.macro'
 
 type PaginationProps = {
   currentPage: number
@@ -12,31 +13,34 @@ const Pagination = ({
   setCurrentPage,
 }: PaginationProps) => {
   return (
-    <div className="text-2xl text-center block mx-0 mt-4 mb-12">
-      <h2>
-        Page: <h2 className="inline font-bold">{currentPage}</h2> of{' '}
-        <h2 className="inline font-bold">{totalPages}</h2>
-      </h2>
-      <button
-        className="btn"
+    <PaginatedContainer>
+      <div>
+        Page: <H2>{currentPage}</H2> of <H2>{totalPages}</H2>
+      </div>
+      <PaginatedButton
         disabled={currentPage <= 1}
         onClick={() => {
           setCurrentPage(currentPage - 1)
         }}
       >
         &lt;
-      </button>
-      <button
-        className="btn"
+      </PaginatedButton>
+      <PaginatedButton
         disabled={currentPage >= totalPages}
         onClick={() => {
           setCurrentPage(currentPage + 1)
         }}
       >
         &gt;
-      </button>
-    </div>
+      </PaginatedButton>
+    </PaginatedContainer>
   )
 }
 
 export default Pagination
+
+const PaginatedContainer = tw.div`text-2xl text-center block mx-0 mt-4 mb-12`
+
+const H2 = tw.h2`inline font-bold`
+
+const PaginatedButton = tw.button`bg-blue-500 m-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full`

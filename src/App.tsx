@@ -5,21 +5,23 @@ import { Routes, Route, Link } from 'react-router-dom'
 import { CollectionProvider } from 'hooks'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
+import tw from 'twin.macro'
+
 const queryClient = new QueryClient()
 
 const App = () => {
   return (
-    <div className="App">
-      <nav className="bg-gradient-to-r from-blue-300 to-purple-300 py-16">
-        <ul className="m-0 list-none">
-          <Link className="nav-button" to="/">
-            My Collection
+    <div>
+      <Nav>
+        <UnorderedList>
+          <Link to="/">
+            <NavLink>My Collection</NavLink>
           </Link>
-          <Link className="nav-button" to="/search">
-            Search
+          <Link to="/search">
+            <NavLink>Search</NavLink>
           </Link>
-        </ul>
-      </nav>
+        </UnorderedList>
+      </Nav>
       <div>
         <CollectionProvider>
           <Routes>
@@ -35,3 +37,9 @@ const App = () => {
   )
 }
 export default App
+
+const Nav = tw.nav`bg-gradient-to-r from-blue-300 to-purple-300 py-16`
+
+const NavLink = tw.span`inline my-0 mx-8 no-underline text-3xl font-semibold`
+
+const UnorderedList = tw.ul`m-0 list-none`
