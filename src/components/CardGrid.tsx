@@ -13,9 +13,7 @@ export default CardGrid
 
 const Grid = tw.div`grid grid-cols-1 px-40 justify-items-center
   lg:grid-cols-2
-<<<<<<< HEAD
   xl:grid-cols-3
-=======
->>>>>>> PR changes, cleaned up package.json and styled components
+  xl:grid-cols-3
   2xl:grid-cols-4
 `
