@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div>
       <Nav>
-        <ul tw="m-0 list-none">
+        <UnorderedList>
           <Link to="/">
             <NavLink>
               My Collection <HiCollection tw="inline-block align-bottom" />
@@ -26,7 +26,7 @@ const App = () => {
               Search <ImSearch tw="inline-block align-top" />
             </NavLink>
           </Link>
-        </ul>
+        </UnorderedList>
       </Nav>
       <div>
         <CollectionProvider>
@@ -44,10 +44,8 @@ const App = () => {
 }
 export default App
 
-const Nav = styled.nav`
-  ${tw`bg-gradient-to-r from-blue-300 to-purple-300 py-16`}
-`
+const Nav = tw.nav`bg-gradient-to-r from-blue-300 to-purple-300 py-16`
 
-const NavLink = styled.a`
-  ${tw`inline my-0 mx-8 no-underline text-3xl font-semibold`}
-`
+const NavLink = tw.span`inline my-0 mx-8 no-underline text-3xl font-semibold`
+
+const UnorderedList = tw.ul`m-0 list-none`

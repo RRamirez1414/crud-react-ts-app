@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
 import tw from 'twin.macro'
 
 type Props = {
@@ -12,6 +11,4 @@ const PageContainer = ({ children }: Props) => {
 
 export default PageContainer
 
-const Container = styled.div`
-  ${tw`px-20 h-full`}
-`
+const Container = tw.div`px-20 h-full`

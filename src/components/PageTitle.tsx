@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react'
-import styled from 'styled-components'
 import tw from 'twin.macro'
 
 type Props = {
@@ -12,6 +11,4 @@ const PageTitle = ({ children }: Props) => {
 
 export default PageTitle
 
-const Title = styled.h2`
-  ${tw`text-2xl my-4`}
-`
+const Title = tw.h2`text-2xl my-4`

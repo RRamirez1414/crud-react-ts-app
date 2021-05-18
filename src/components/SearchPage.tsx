@@ -8,8 +8,8 @@ import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
 import { CgPokemon } from 'react-icons/cg'
-import tw from 'twin.macro'
 import styled from 'styled-components'
+import tw from 'twin.macro'
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -59,8 +59,7 @@ const SearchPage = () => {
     <PageContainer>
       <PageTitle>Search Page</PageTitle>
 
-      <form
-        tw="w-full inline"
+      <Form
         onKeyDown={(event: React.KeyboardEvent) => {
           if (event.key === 'Enter') event.preventDefault()
         }}
@@ -73,9 +72,11 @@ const SearchPage = () => {
           ref={inputRef}
         />
         {pokemonNameQuery.isLoading ? (
-          <CgPokemon tw="inline-block animate-spin h-8 w-8 mx-4" />
+          <Loader>
+            <CgPokemon />
+          </Loader>
         ) : null}
-      </form>
+      </Form>
 
       {pokemonNameQuery.data ? (
         <Pagination
@@ -94,16 +95,16 @@ const SearchPage = () => {
             })}
           </CardGrid>
         ) : (
-          <h2 tw="text-center font-bold text-4xl">No Results</h2>
+          <H2>No Results</H2>
         )
       ) : null}
       {pokemonNameQuery.isError ? (
-        <div tw="text-center font-bold text-4xl">
+        <ErrorContainer>
           <h1>Something went wrong</h1>
           <h1>Please Try Again</h1>
-        </div>
+        </ErrorContainer>
       ) : null}
-      <div tw="align-text-bottom">
+      <PaginationBottom>
         {pokemonNameQuery.data ? (
           <Pagination
             currentPage={currentPage}
@@ -113,16 +114,34 @@ const SearchPage = () => {
             setCurrentPage={setPage}
           />
         ) : null}
-      </div>
+      </PaginationBottom>
     </PageContainer>
   )
 }
 
 export default SearchPage
 
-const SearchInput = styled.input`
-  ${tw`shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none`}
+const SearchInput = tw.input`shadow 
+appearance-none 
+border 
+rounded 
+w-1/4 
+py-2 
+px-3 
+text-gray-700 
+leading-tight 
+focus:outline-none
 `
-const Loader = styled.svg`
-  ${tw`inline-block animate-spin h-6 w-6 mx-4`}
+const Form = tw.form`w-full inline`
+
+const H2 = tw.h2`text-center`
+
+const ErrorContainer = tw.div`text-center`
+
+const PaginationBottom = tw.div`align-text-bottom`
+
+const Loader = styled.span`
+  & svg {
+    ${tw`inline-block animate-spin h-8 w-8 mx-4`}
+  }
 `
