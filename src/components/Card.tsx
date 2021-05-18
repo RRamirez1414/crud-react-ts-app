@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
+import { HiPlus } from 'react-icons/hi'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 
@@ -65,7 +66,7 @@ const Card = ({ cardData }: CardProps) => {
                   })
                 }}
               >
-                Add To Collection
+                <HiPlus />
               </FigButton>
             )}
           </div>
@@ -114,7 +115,7 @@ const FigButton = styled.button<{ isAdded?: boolean }>`
   text-sm 
   py-2.5 
   px-5 
-  rounded-md
+  rounded-full
   hover:shadow-lg
   `}
 
@@ -127,6 +128,7 @@ const FigButton = styled.button<{ isAdded?: boolean }>`
       `
     }
     return tw`
+    text-3xl
     bg-blue-500 
     hover:bg-blue-600 
     `
