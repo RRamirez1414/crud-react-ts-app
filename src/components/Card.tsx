@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
-import tw, { css } from 'twin.macro'
+import tw from 'twin.macro'
 import styled from 'styled-components'
 
 type CardProps = {
@@ -13,8 +13,8 @@ const Card = ({ cardData }: CardProps) => {
   const [pathname, setPathName] = useState(window.location.pathname)
 
   return (
-    <div tw="m-8 text-center">
-      <Figure css={[figEffectHover]}>
+    <CardContainer>
+      <Figure>
         <FigImage src={cardData.images.small} />
         <FigCaption>
           <span>
@@ -31,14 +31,13 @@ const Card = ({ cardData }: CardProps) => {
           </span>
           {cardData.tcgplayer ? (
             <p>
-              <a
-                tw="mb-12 text-gray-100 hover:underline"
+              <TCGLink
                 target="_blank"
                 rel="noreferrer"
                 href={cardData.tcgplayer.url}
               >
                 Purchase this card
-              </a>
+              </TCGLink>
             </p>
           ) : null}
           <div>
@@ -73,18 +72,23 @@ const Card = ({ cardData }: CardProps) => {
           <p>{cardData.flavorText}</p>
         </FigCaption>
       </Figure>
-    </div>
+    </CardContainer>
   )
 }
 
 export default Card
 
+const CardContainer = tw.div`m-8 text-center`
+
 const Figure = styled.figure`
-  ${tw`relative rounded-xl overflow-hidden h-full`}
+  ${tw`relative rounded-xl overflow-hidden h-full shadow-bottom-right`}
+  &:hover img {
+    ${tw`motion-safe:translate-x-64`}
+  }
 `
 
-const FigImage = styled.img`
-  ${tw`rounded-xl 
+const FigImage = tw.img`
+  rounded-xl 
   w-64 
   h-80 
   transition-all 
@@ -92,32 +96,43 @@ const FigImage = styled.img`
   object-left
   transform
   duration-700
-  `}
-  box-shadow: 5px 5px 6px rgb(0 0 0 / 45%)
 `
-const FigCaption = styled.figcaption`
-  ${tw`text-white 
+const FigCaption = tw.figcaption`
+  text-white 
   bg-gray-800 
   p-8 
   top-0 
   h-80 
   w-64
   rounded-lg  
-`}
-  box-shadow: 5px 5px 6px rgb(0 0 0 / 45%)
+  shadow-bottom-right
 `
 
 const FigButton = styled.button<{ isAdded?: boolean }>`
   ${({ isAdded }) => {
     if (isAdded) {
-      return tw`focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600 hover:shadow-lg`
+      return tw`focus:outline-none 
+      text-white 
+      text-sm 
+      py-2.5 
+      px-5 
+      rounded-md 
+      bg-red-500 
+      hover:bg-red-600 
+      hover:shadow-lg
+      `
     }
-    return tw`focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600 hover:shadow-lg`
+    return tw`focus:outline-none 
+    text-white 
+    text-sm 
+    py-2.5 
+    px-5 
+    rounded-md 
+    bg-blue-500 
+    hover:bg-blue-600 
+    hover:shadow-lg
+    `
   }}
 `
 
-const figEffectHover = css`
-  &:hover img {
-    ${tw`motion-safe:translate-x-64`}
-  }
-`
+const TCGLink = tw.a`mb-12 text-gray-100 hover:underline`
