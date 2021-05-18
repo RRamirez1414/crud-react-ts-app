@@ -17,10 +17,14 @@ const App = () => {
       <Nav>
         <UnorderedList>
           <Link to="/">
-            <NavLink>My Collection</NavLink>
+            <NavLink>
+              My Collection <HiCollection tw="inline-block align-bottom" />
+            </NavLink>
           </Link>
           <Link to="/search">
-            <NavLink>Search</NavLink>
+            <NavLink>
+              Search <ImSearch tw="inline-block align-top" />
+            </NavLink>
           </Link>
         </UnorderedList>
       </Nav>

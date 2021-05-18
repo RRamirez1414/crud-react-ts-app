@@ -7,6 +7,7 @@ import Pagination from './Pagination'
 import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
+import { CgPokemon } from 'react-icons/cg'
 import tw from 'twin.macro'
 
 const SearchPage = () => {
@@ -70,7 +71,7 @@ const SearchPage = () => {
           ref={inputRef}
         />
         {pokemonNameQuery.isLoading ? (
-          <Loader src="./loading-process.svg" />
+          <CgPokemon tw="inline-block animate-spin h-8 w-8 mx-4" />
         ) : null}
       </Form>
 
