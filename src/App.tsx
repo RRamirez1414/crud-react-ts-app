@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ImSearch } from 'react-icons/im'
 import { HiCollection } from 'react-icons/hi'
-import tw, { styled } from 'twin.macro'
+import tw from 'twin.macro'
 
 const queryClient = new QueryClient()
 
@@ -18,15 +18,12 @@ const App = () => {
         <UnorderedList>
           <Link to="/">
             <NavLink>
-              My Collection{' '}
-              <BottomAlign>
-                <HiCollection />
-              </BottomAlign>
+              My Collection <CollectionIcon />
             </NavLink>
           </Link>
           <Link to="/search">
             <NavLink>
-              Search <ImSearch />
+              Search <SearchIcon />
             </NavLink>
           </Link>
         </UnorderedList>
@@ -49,18 +46,10 @@ export default App
 
 const Nav = tw.nav`bg-gradient-to-r from-blue-300 to-purple-300 py-16`
 
-const NavLink = styled.span`
-  ${tw`inline my-0 mx-8 no-underline text-3xl font-semibold`}
+const NavLink = tw.span`inline my-0 mx-8 no-underline text-3xl font-semibold`
 
-  & svg {
-    ${tw`inline-block align-top`}
-  }
-`
+const CollectionIcon = tw(HiCollection)`inline-block align-bottom`
 
-const BottomAlign = styled.span`
-  & svg {
-    ${tw`align-bottom`}
-  }
-`
+const SearchIcon = tw(ImSearch)`inline-block align-top`
 
 const UnorderedList = tw.ul`m-0 list-none`

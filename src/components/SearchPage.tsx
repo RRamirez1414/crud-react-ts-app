@@ -70,11 +70,7 @@ const SearchPage = () => {
           value={formData.pokemonName}
           ref={inputRef}
         />
-        {pokemonNameQuery.isLoading ? (
-          <Loader>
-            <CgPokemon />
-          </Loader>
-        ) : null}
+        {pokemonNameQuery.isLoading ? <Loader /> : null}
       </Form>
 
       {pokemonNameQuery.data ? (
@@ -139,8 +135,4 @@ const ErrorContainer = tw.div`text-center`
 
 const PaginationBottom = tw.div`align-text-bottom`
 
-const Loader = styled.span`
-  & svg {
-    ${tw`inline-block animate-spin h-8 w-8 mx-4`}
-  }
-`
+const Loader = tw(CgPokemon)`inline-block animate-spin h-8 w-8 mx-4`
