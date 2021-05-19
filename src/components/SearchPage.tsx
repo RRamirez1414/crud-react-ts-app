@@ -8,7 +8,7 @@ import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
 import { CgPokemon } from 'react-icons/cg'
-import tw from 'twin.macro'
+import tw, { styled } from 'twin.macro'
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -71,7 +71,9 @@ const SearchPage = () => {
           ref={inputRef}
         />
         {pokemonNameQuery.isLoading ? (
-          <CgPokemon tw="inline-block animate-spin h-8 w-8 mx-4" />
+          <Loader>
+            <CgPokemon />
+          </Loader>
         ) : null}
       </Form>
 
@@ -137,4 +139,8 @@ const ErrorContainer = tw.div`text-center`
 
 const PaginationBottom = tw.div`align-text-bottom`
 
-const Loader = tw.img`inline-block animate-spin h-6 w-6 mx-4`
+const Loader = styled.span`
+  & svg {
+    ${tw`inline-block animate-spin h-8 w-8 mx-4`}
+  }
+`
