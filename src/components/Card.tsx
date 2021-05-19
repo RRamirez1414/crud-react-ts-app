@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
-import { HiPlus } from 'react-icons/hi'
 import tw from 'twin.macro'
 import styled from 'styled-components'
 import { HiPlus } from 'react-icons/hi'
