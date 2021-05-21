@@ -8,7 +8,7 @@ import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
 import { CgPokemon } from 'react-icons/cg'
-import tw, { styled } from 'twin.macro'
+import tw from 'twin.macro'
 
 const SearchPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
