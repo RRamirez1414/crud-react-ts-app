@@ -6,7 +6,7 @@ type Props = {
 }
 
 const CardGrid = ({ children }: Props) => {
-  return <Grid id="card-grid">{children}</Grid>
+  return <Grid>{children}</Grid>
 }
 
 export default CardGrid

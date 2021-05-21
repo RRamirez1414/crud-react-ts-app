@@ -96,7 +96,7 @@ const FigImage = tw.img`
   absolute 
   object-left
   transform
-  duration-700
+  duration-500
 `
 const FigCaption = tw.figcaption`
   text-white 
@@ -112,7 +112,6 @@ const FigCaption = tw.figcaption`
 const FigButton = styled.button<{ isAdded?: boolean }>`
   ${tw`focus:outline-none 
   text-white 
-  text-lg 
   py-2.5 
   px-5 
   rounded-full
