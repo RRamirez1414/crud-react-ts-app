@@ -1,5 +1,5 @@
 before(() => {
-  cy.removeAllListeners()
+  cy.clearCookies()
   cy.clearLocalStorage()
 })
 
@@ -23,7 +23,6 @@ it('can add cards to the collection', () => {
 
 it('can delete cards from the collection', () => {
   const cardFigures = cy.findAllByRole('figure').should('exist')
-
   cardFigures.each((cardFigure) => {
     cy.wrap(cardFigure).realHover()
     cy.wrap(cardFigure)
