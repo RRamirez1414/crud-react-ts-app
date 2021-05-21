@@ -1,36 +1,56 @@
 before(() => {
+  //clear some data before test
   cy.clearCookies()
   cy.clearLocalStorage()
 })
 
 it('can add cards to the collection', () => {
+  //visit the home page
   cy.visit('/')
-  cy.findAllByRole('link', { name: 'Search' }).click()
-  const cardFigures = cy.findAllByRole('figure').should('exist')
 
-  cardFigures.each((cardFigure) => {
-    cy.wrap(cardFigure).realHover()
-    cy.wrap(cardFigure)
-      .findByRole('button')
-      .should('be.visible')
-      //? questionable click workaround
-      .realClick()
-      .click()
-    cy.wrap(cardFigure).findByText('In Collection').should('be.visible')
-  })
-  cy.contains('My Collection').click()
+  //navigate to 'Search' page
+  cy.findByRole('link', { name: 'Search' }).click()
+
+  //find all the rendered card figures
+  cy.findAllByRole('figure')
+    .should('exist')
+
+    //for each card figure perform some actions and assertions
+    .each((cardFigure, index) => {
+      //hover over the figure
+      cy.wrap(cardFigure)
+        .realHover({ position: 'center' })
+
+        //while hovered, look for the button and click it
+        .findByRole('button', { name: 'Add' })
+        .click()
+
+      //assert 'In Collection' is visible after click
+      cy.wrap(cardFigure).findByText('In Collection').should('be.visible')
+
+      if (index > 3) return false
+    })
 })
 
 it('can delete cards from the collection', () => {
-  const cardFigures = cy.findAllByRole('figure').should('exist')
-  cardFigures.each((cardFigure) => {
-    cy.wrap(cardFigure).realHover()
-    cy.wrap(cardFigure)
-      .findByRole('button', { name: 'DELETE' })
-      .should('be.visible')
-      .realClick()
-      .click()
-  })
-})
+  //navigate to 'My Collection' page
+  cy.findByRole('link', { name: 'My Collection' }).click()
 
-export {}
+  //find all card figures that were previously added
+  cy.findAllByRole('figure')
+    .should('exist')
+
+    //for each card figure perform some actions and assertions
+    .each((cardFigure) => {
+      //hover over the figure
+      cy.wrap(cardFigure)
+        .realHover({ position: 'center' })
+
+        //while hovered, look the 'Delete' button and click it
+        .findByRole('button', { name: 'DELETE' })
+        .click()
+    })
+
+  //assert that no card figures should exist
+  cy.findAllByRole('figure').should('not.exist')
+})

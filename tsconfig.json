@@ -23,5 +23,5 @@
       "cypress-real-events"
     ]
   },
-  "include": ["src", "twin.d.ts", "cypress", "**/*.ts"]
+  "include": ["src", "twin.d.ts"]
 }
