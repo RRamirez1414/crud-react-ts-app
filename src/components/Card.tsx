@@ -127,7 +127,6 @@ const FigButton = styled.button<{ isAdded?: boolean }>`
       `
     }
     return tw`
-    text-3xl
     bg-blue-500 
     hover:bg-blue-600 
     `
