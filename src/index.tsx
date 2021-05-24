@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom'
 import GlobalStyles from 'styles/GlobalStyles'
 
 //import mocks/browser.ts file conditionally
-//@ts-ignore, cypress will exist at runtime if running
 if (window.Cypress) {
   const { worker } = require('./mocks/browser')
   worker.start()
