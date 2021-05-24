@@ -3,7 +3,6 @@ import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
 import tw from 'twin.macro'
 import styled from 'styled-components'
-import { HiPlus } from 'react-icons/hi'
 
 type CardProps = {
   cardData: PokemonCard
@@ -22,7 +21,7 @@ const Card = ({ cardData }: CardProps) => {
             <p>
               Name: <strong>{cardData.name}</strong>
             </p>
-            <p>Set: {cardData.set.name}</p>
+            <Set>Set: {cardData.set.name}</Set>
             <p>
               Types:{' '}
               {cardData.types?.map((type) => (
@@ -58,16 +57,18 @@ const Card = ({ cardData }: CardProps) => {
                 </FigButton>
               </div>
             ) : (
-              <FigButton
-                onClick={() => {
-                  dispatch({
-                    type: 'ADD-CARD',
-                    card: cardData,
-                  })
-                }}
-              >
-                <HiPlus />
-              </FigButton>
+              <div>
+                <FigButton
+                  onClick={() => {
+                    dispatch({
+                      type: 'ADD-CARD',
+                      card: cardData,
+                    })
+                  }}
+                >
+                  Add
+                </FigButton>
+              </div>
             )}
           </div>
           <p>{cardData.flavorText}</p>
@@ -82,9 +83,9 @@ export default Card
 const CardContainer = tw.div`m-8 text-center`
 
 const Figure = styled.figure`
-  ${tw`relative rounded-xl overflow-hidden h-full shadow-bottom-right`}
+  ${tw`relative rounded-xl overflow-hidden h-full shadow-bottom-right duration-100`}
   &:hover img {
-    ${tw`motion-safe:translate-x-64`}
+    ${tw`motion-safe:translate-x-80`}
   }
 `
 
@@ -96,7 +97,7 @@ const FigImage = tw.img`
   absolute 
   object-left
   transform
-  duration-700
+  duration-500
 `
 const FigCaption = tw.figcaption`
   text-white 
@@ -112,7 +113,6 @@ const FigCaption = tw.figcaption`
 const FigButton = styled.button<{ isAdded?: boolean }>`
   ${tw`focus:outline-none 
   text-white 
-  text-lg 
   py-2.5 
   px-5 
   rounded-full
@@ -133,5 +133,5 @@ const FigButton = styled.button<{ isAdded?: boolean }>`
     `
   }}
 `
-
+const Set = tw.p`overflow-ellipsis`
 const TCGLink = tw.a`mb-12 text-gray-100 hover:underline`
