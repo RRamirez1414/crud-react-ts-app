@@ -11,9 +11,14 @@ it('can add cards to the collection', () => {
   //navigate to 'Search' page
   cy.findByRole('link', { name: 'Search' }).click()
 
+  //search for 'charmander, give the debounce a chance to execute
+  cy.findByPlaceholderText('Card Name').type('charmander')
+
+  //assert if a charmander card exist
   //find all the rendered card figures
   cy.findAllByRole('figure')
     .should('exist')
+    .should('contain', 'Charmander')
 
     //for each card figure perform some actions and assertions
     .each((cardFigure, index) => {
