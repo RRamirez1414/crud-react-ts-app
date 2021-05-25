@@ -1,10 +1,11 @@
-import { ResponseComposition, rest, RestRequest } from 'msw'
+import { rest } from 'msw'
+import { ListCardsResponse } from 'utils'
 import { charmander, pickachu } from './data'
 
 export const handlers = [
-  rest.get(
+  rest.get<undefined, ListCardsResponse>(
     'https://api.pokemontcg.io/v2/cards',
-    (req: RestRequest, res: ResponseComposition, ctx) => {
+    (req, res, ctx) => {
       if (req.url.search.includes('name:charmander')) {
         //data count is reduced for mocking purposes
         return res(
