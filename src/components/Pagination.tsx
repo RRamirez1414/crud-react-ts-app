@@ -1,6 +1,7 @@
 import React from 'react'
 import tw from 'twin.macro'
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
+import { useTranslation } from 'react-i18next'
 
 type PaginationProps = {
   currentPage: number
@@ -13,10 +14,11 @@ const Pagination = ({
   totalPages,
   setCurrentPage,
 }: PaginationProps) => {
+  const { t } = useTranslation()
   return (
     <PaginatedContainer>
       <div>
-        Page: <H2>{currentPage}</H2> of <H2>{totalPages}</H2>
+        {t('page')} <H2>{currentPage}</H2> {t('of')} <H2>{totalPages}</H2>
       </div>
       <PaginatedButton
         disabled={currentPage <= 1}
