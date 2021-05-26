@@ -9,6 +9,16 @@ const translation = {
   },
   page: 'Page',
   of: 'of',
+
+  cardHeadings: {
+    name: 'Name',
+    set: 'Set',
+    types: 'Types',
+    purchase: 'Purchase this card',
+    isCollected: 'In Collection',
+    add: 'Add',
+    delete: 'DELETE',
+  },
 }
 
 export default translation
