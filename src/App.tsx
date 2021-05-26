@@ -1,6 +1,7 @@
 import React from 'react'
 import SearchPage from './components/SearchPage'
 import MyCollectionsPage from './components/MyCollectionsPage'
+import SelectLanguage from './components/SelectLanguage'
 import { Routes, Route, Link } from 'react-router-dom'
 import { CollectionProvider } from 'hooks'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -8,24 +9,28 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { ImSearch } from 'react-icons/im'
 import { HiCollection } from 'react-icons/hi'
 import tw from 'twin.macro'
+import './i18n/i18n'
+import { useTranslation } from 'react-i18next'
 
 const queryClient = new QueryClient()
 
 const App = () => {
+  const { t } = useTranslation()
   return (
     <div>
       <Nav>
         <UnorderedList>
           <Link to="/">
             <NavLink>
-              My Collection <CollectionIcon />
+              {t('My Collection')} <CollectionIcon />
             </NavLink>
           </Link>
           <Link to="/search">
             <NavLink>
-              Search <SearchIcon />
+              {t('Search Page')} <SearchIcon />
             </NavLink>
           </Link>
+          <SelectLanguage />
         </UnorderedList>
       </Nav>
       <div>
@@ -44,7 +49,7 @@ const App = () => {
 }
 export default App
 
-const Nav = tw.nav`bg-gradient-to-r from-blue-300 to-purple-300 py-16`
+const Nav = tw.nav`bg-gradient-to-r from-blue-300 to-purple-300 py-16 px-12`
 
 const NavLink = tw.span`inline my-0 mx-8 no-underline text-3xl font-semibold`
 

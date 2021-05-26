@@ -9,8 +9,10 @@ import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
 import { CgPokemon } from 'react-icons/cg'
 import tw from 'twin.macro'
+import { useTranslation } from 'react-i18next'
 
 const SearchPage = () => {
+  const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -56,7 +58,7 @@ const SearchPage = () => {
 
   return (
     <PageContainer>
-      <PageTitle>Search Page</PageTitle>
+      <PageTitle>{t('Search Page')}</PageTitle>
 
       <Form
         onKeyDown={(event: React.KeyboardEvent) => {
@@ -64,7 +66,7 @@ const SearchPage = () => {
         }}
       >
         <SearchInput
-          placeholder="Card Name"
+          placeholder={t('Card Name')}
           name="pokemonName"
           onChange={onInputChange}
           value={formData.pokemonName}
@@ -135,4 +137,4 @@ const ErrorContainer = tw.div`text-center`
 
 const PaginationBottom = tw.div`align-text-bottom`
 
-const Loader = tw(CgPokemon)`inline-block animate-spin h-8 w-8 mx-4`
+const Loader = tw(CgPokemon)`inline-block h-8 w-8 mx-4`

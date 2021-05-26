@@ -4,9 +4,11 @@ import PageTitle from './PageTitle'
 import PageContainer from './Container'
 import { useCollection } from 'hooks'
 import { fetchCards } from 'utils'
+import { useTranslation } from 'react-i18next'
 
 const MyCollectionsPage = () => {
   const { collection, dispatch } = useCollection()
+  const { t } = useTranslation()
 
   //load an initial card
   useEffect(() => {
@@ -22,7 +24,7 @@ const MyCollectionsPage = () => {
   }, [])
   return (
     <PageContainer>
-      <PageTitle>My Collection</PageTitle>
+      <PageTitle>{t('My Collection')}</PageTitle>
       {collection.cards.length === 0 ? <h2>No cards in collection</h2> : null}
       <Collection />
     </PageContainer>

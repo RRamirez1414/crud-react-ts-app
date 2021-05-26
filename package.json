@@ -10,9 +10,11 @@
     "@types/node": "^12.20.8",
     "@types/react-dom": "^17.0.3",
     "cypress-real-events": "^1.4.0",
+    "i18next": "^20.3.0",
     "ky": "^0.27.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-i18next": "^11.9.0",
     "react-icons": "^4.2.0",
     "react-router": "^6.0.0-beta.0",
     "react-router-dom": "^6.0.0-beta.0",
@@ -52,6 +54,7 @@
     "@types/autoprefixer": "^10.2.0",
     "@types/react": "^17.0.5",
     "@types/styled-components": "^5.1.9",
+    "@types/tailwindcss": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "cypress": "^7.3.0",
@@ -62,7 +65,7 @@
     "prettier": "2.2.1",
     "react-query": "^3.16.0",
     "styled-components": "^5.3.0",
-    "twin.macro": "^2.4.1"
+    "twin.macro": "^2.4.2"
   },
   "babelMacros": {
     "twin": {

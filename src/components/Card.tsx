@@ -3,12 +3,14 @@ import { isCollected } from 'utils'
 import { useCollection } from 'hooks'
 import tw from 'twin.macro'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 type CardProps = {
   cardData: PokemonCard
 }
 
 const Card = ({ cardData }: CardProps) => {
+  const { t } = useTranslation()
   const { collection, dispatch } = useCollection()
   const [pathname, setPathName] = useState(window.location.pathname)
 
@@ -19,11 +21,13 @@ const Card = ({ cardData }: CardProps) => {
         <FigCaption>
           <span>
             <p>
-              Name: <strong>{cardData.name}</strong>
+              {t('Name')}: <strong>{cardData.name}</strong>
             </p>
-            <Set>Set: {cardData.set.name}</Set>
+            <Set>
+              {t('Set')}: {cardData.set.name}
+            </Set>
             <p>
-              Types:{' '}
+              {t('Types')}:{' '}
               {cardData.types?.map((type) => (
                 <strong key={type}>{type}</strong>
               ))}
@@ -36,14 +40,14 @@ const Card = ({ cardData }: CardProps) => {
                 rel="noreferrer"
                 href={cardData.tcgplayer.url}
               >
-                Purchase this card
+                {t('Purchase this card')}
               </TCGLink>
             </p>
           ) : null}
           <div>
             {isCollected({ cards: collection.cards, id: cardData.id }) ? (
               <div>
-                {pathname === '/search' ? <p>In Collection</p> : null}
+                {pathname === '/search' ? <p>{t('In Collection')}</p> : null}
                 <FigButton
                   isAdded
                   onClick={() => {
@@ -53,7 +57,7 @@ const Card = ({ cardData }: CardProps) => {
                     })
                   }}
                 >
-                  DELETE
+                  {t('DELETE')}
                 </FigButton>
               </div>
             ) : (
@@ -66,7 +70,7 @@ const Card = ({ cardData }: CardProps) => {
                     })
                   }}
                 >
-                  Add
+                  {t('Add')}
                 </FigButton>
               </div>
             )}
