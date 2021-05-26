@@ -5,7 +5,6 @@ import tw from 'twin.macro'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import translation from 'i18n/en-US/en-US'
 
 type CardProps = {
   cardData: PokemonCard
@@ -19,6 +18,7 @@ const Card = ({ cardData }: CardProps) => {
     scale: [0, 1],
     borderRadius: ['10%', '30%', '10%'],
   }
+
   const { t } = useTranslation()
   const { collection, dispatch } = useCollection()
   const [pathname, setPathName] = useState(window.location.pathname)
@@ -76,6 +76,7 @@ const Card = ({ cardData }: CardProps) => {
                     {t('In Collection')}
                   </InCollection>
                 ) : null}
+
                 <FigButton
                   transition={buttonTransition}
                   animate={buttonAnimation}
