@@ -58,7 +58,7 @@ const SearchPage = () => {
 
   return (
     <PageContainer>
-      <PageTitle>{t('pages.search')}</PageTitle>
+      <PageTitle>{t('Search Page')}</PageTitle>
 
       <Form
         onKeyDown={(event: React.KeyboardEvent) => {
@@ -66,7 +66,7 @@ const SearchPage = () => {
         }}
       >
         <SearchInput
-          placeholder={t('input.cardName')}
+          placeholder={t('Card Name')}
           name="pokemonName"
           onChange={onInputChange}
           value={formData.pokemonName}
@@ -137,4 +137,4 @@ const ErrorContainer = tw.div`text-center`
 
 const PaginationBottom = tw.div`align-text-bottom`
 
-const Loader = tw(CgPokemon)`inline-block animate-spin h-8 w-8 mx-4`
+const Loader = tw(CgPokemon)`inline-block h-8 w-8 mx-4`

@@ -1,24 +1,16 @@
 const translation = {
-  pages: {
-    search: 'Search Page',
-    myCollection: 'Collection Page',
-  },
-
-  input: {
-    cardName: 'Card Name',
-  },
-  page: 'Page',
+  'My Collection': 'My Collection',
+  'Search Page': 'Search Page',
+  'Card Name': 'Card Name',
+  Page: 'Page',
   of: 'of',
-
-  cardHeadings: {
-    name: 'Name',
-    set: 'Set',
-    types: 'Types',
-    purchase: 'Purchase this card',
-    isCollected: 'In Collection',
-    add: 'Add',
-    delete: 'DELETE',
-  },
+  Name: 'Name',
+  Set: 'Set',
+  Types: 'Types',
+  'Purchase this card': 'Purchase this card',
+  'In Collection': 'In Collection',
+  Add: 'Add',
+  DELETE: 'DELETE',
 }
 
 export default translation

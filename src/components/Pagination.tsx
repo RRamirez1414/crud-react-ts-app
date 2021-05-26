@@ -18,7 +18,7 @@ const Pagination = ({
   return (
     <PaginatedContainer>
       <div>
-        {t('page')} <H2>{currentPage}</H2> {t('of')} <H2>{totalPages}</H2>
+        {t('Page')} <H2>{currentPage}</H2> {t('of')} <H2>{totalPages}</H2>
       </div>
       <PaginatedButton
         disabled={currentPage <= 1}

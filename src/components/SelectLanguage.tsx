@@ -4,17 +4,21 @@ import tw from 'twin.macro'
 import { GrLanguage } from 'react-icons/gr'
 
 const SelectLanguage = () => {
+  const defaultLanguage = localStorage.getItem('pc-language') || 'en'
+
   return (
     <Container>
       <LanguageIcon />
       <Select
         name="language"
+        defaultValue={defaultLanguage}
         onChange={(event) => {
           event.preventDefault()
+          localStorage.setItem('pc-language', event.target.value)
           i18n.changeLanguage(event.target.value)
         }}
       >
-        <option value="en-US">English (US)</option>
+        <option value="en">English (US)</option>
         <option value="de">German</option>
       </Select>
     </Container>

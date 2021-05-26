@@ -21,13 +21,13 @@ const Card = ({ cardData }: CardProps) => {
         <FigCaption>
           <span>
             <p>
-              {t('cardHeadings.name')}: <strong>{cardData.name}</strong>
+              {t('Name')}: <strong>{cardData.name}</strong>
             </p>
             <Set>
-              {t('cardHeadings.set')}: {cardData.set.name}
+              {t('Set')}: {cardData.set.name}
             </Set>
             <p>
-              {t('cardHeadings.types')}:{' '}
+              {t('Types')}:{' '}
               {cardData.types?.map((type) => (
                 <strong key={type}>{type}</strong>
               ))}
@@ -40,16 +40,14 @@ const Card = ({ cardData }: CardProps) => {
                 rel="noreferrer"
                 href={cardData.tcgplayer.url}
               >
-                {t('cardHeadings.purchase')}
+                {t('Purchase this card')}
               </TCGLink>
             </p>
           ) : null}
           <div>
             {isCollected({ cards: collection.cards, id: cardData.id }) ? (
               <div>
-                {pathname === '/search' ? (
-                  <p>{t('cardHeadings.isCollected')}</p>
-                ) : null}
+                {pathname === '/search' ? <p>{t('In Collection')}</p> : null}
                 <FigButton
                   isAdded
                   onClick={() => {
@@ -59,7 +57,7 @@ const Card = ({ cardData }: CardProps) => {
                     })
                   }}
                 >
-                  {t('cardHeadings.delete')}
+                  {t('DELETE')}
                 </FigButton>
               </div>
             ) : (
@@ -72,7 +70,7 @@ const Card = ({ cardData }: CardProps) => {
                     })
                   }}
                 >
-                  {t('cardHeadings.add')}
+                  {t('Add')}
                 </FigButton>
               </div>
             )}

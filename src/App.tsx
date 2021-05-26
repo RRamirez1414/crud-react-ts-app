@@ -22,12 +22,12 @@ const App = () => {
         <UnorderedList>
           <Link to="/">
             <NavLink>
-              {t('pages.myCollection')} <CollectionIcon />
+              {t('My Collection')} <CollectionIcon />
             </NavLink>
           </Link>
           <Link to="/search">
             <NavLink>
-              {t('pages.search')} <SearchIcon />
+              {t('Search Page')} <SearchIcon />
             </NavLink>
           </Link>
           <SelectLanguage />

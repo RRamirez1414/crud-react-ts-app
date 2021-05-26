@@ -24,7 +24,7 @@ const MyCollectionsPage = () => {
   }, [])
   return (
     <PageContainer>
-      <PageTitle>{t('pages.myCollection')}</PageTitle>
+      <PageTitle>{t('My Collection')}</PageTitle>
       {collection.cards.length === 0 ? <h2>No cards in collection</h2> : null}
       <Collection />
     </PageContainer>

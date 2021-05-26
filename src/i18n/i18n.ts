@@ -13,7 +13,7 @@ export const resources = {
 } as const
 
 i18n.use(initReactI18next).init({
-  lng: 'en',
+  lng: localStorage.getItem('pc-language') || 'en',
   ns: ['enUS'],
   resources,
 })
