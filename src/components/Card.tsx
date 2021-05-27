@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { isCollected } from 'utils'
-import { useCollection } from 'hooks'
+import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
@@ -17,7 +15,7 @@ const Card = ({ cardData }: CardProps) => {
   return (
     <CardContainer>
       <Figure
-        onMouseEnter={() => {
+        onMouseOver={() => {
           setHovered(true)
         }}
         onMouseLeave={() => {

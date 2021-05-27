@@ -1,17 +1,12 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { useCollection } from 'hooks'
 import { useTranslation } from 'react-i18next'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { isCollected } from 'utils'
 import { CardProps } from './Card'
-import styled from 'styled-components'
 import tw from 'twin.macro'
 
 const CardButton = ({ cardData }: CardProps) => {
-  // const buttonAnimation = {
-  //   scale: [0, 1],
-  //   borderRadius: ['10%', '30%', '10%'],
-  // }
   const { t } = useTranslation()
   const { collection, dispatch } = useCollection()
   const [pathname, setPathName] = useState(window.location.pathname)
@@ -20,40 +15,52 @@ const CardButton = ({ cardData }: CardProps) => {
   )
 
   const variants = {
-    show: { scale: [0, 1] },
+    show: { scale: [0, 1], delay: 0.2 },
     hide: { scale: [1, 0] },
   }
 
   return (
-    <motion.div transition={{ duration: 0.3 }}>
+    <motion.div transition={{ duration: 0.2 }}>
       {pathname === '/search' ? (
-        <InCollection variants={variants} animate={isAdded ? 'show' : 'hide'}>
+        <InCollection
+          variants={variants}
+          initial={{ scale: 0 }}
+          animate={isAdded ? 'show' : 'hide'}
+        >
           {t('In Collection')}
         </InCollection>
       ) : null}
-      <FigButton
-        animate={{ scale: [0, 1] }}
-        isAdded={isAdded}
-        onClick={() => {
-          if (isAdded) {
-            //handle deletion
+      {isAdded ? (
+        <FigDeleteButton
+          variants={variants}
+          initial={{ scale: 0 }}
+          animate={isAdded ? 'show' : 'hide'}
+          onClick={() => {
             setIsAdded(false)
             dispatch({
               type: 'DELETE-CARD',
               card: cardData,
             })
-          } else {
-            //handle addition
+          }}
+        >
+          {t('DELETE')}
+        </FigDeleteButton>
+      ) : (
+        <FigAddButton
+          variants={variants}
+          initial={{ scale: 0 }}
+          animate={isAdded ? 'hide' : 'show'}
+          onClick={() => {
             setIsAdded(true)
             dispatch({
               type: 'ADD-CARD',
               card: cardData,
             })
-          }
-        }}
-      >
-        <p>{isAdded ? t('DELETE') : t('Add')}</p>
-      </FigButton>
+          }}
+        >
+          {t('Add')}
+        </FigAddButton>
+      )}
     </motion.div>
   )
 }
@@ -62,26 +69,24 @@ export default CardButton
 
 const InCollection = tw(motion.p)`text-lg`
 
-const FigButton = styled(motion.button)<{ isAdded?: boolean }>`
-  ${tw`focus:outline-none 
+const FigDeleteButton = tw(motion.button)`
+  focus:outline-none 
   text-white 
   py-2.5 
   px-5 
   rounded-lg
-  transform
   hover:shadow-lg
-  `}
+  bg-red-500
+  hover:bg-red-600
+`
 
-  ${({ isAdded }) => {
-    if (isAdded) {
-      return tw`     
-      bg-red-500 
-      hover:bg-red-600 
-      `
-    }
-    return tw`
-    bg-blue-500 
-    hover:bg-blue-600 
-    `
-  }}
+const FigAddButton = tw(motion.button)`
+  focus:outline-none 
+  text-white 
+  py-2.5 
+  px-5 
+  rounded-lg
+  hover:shadow-lg
+  bg-blue-500 
+  hover:bg-blue-600
 `

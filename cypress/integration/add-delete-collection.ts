@@ -49,7 +49,7 @@ it('can delete cards from the collection', () => {
     .each((cardFigure) => {
       //hover over the figure
       cy.wrap(cardFigure)
-        .realHover({ position: 'center' })
+        .realHover()
 
         //while hovered, look the 'Delete' button and click it
         .findByRole('button', { name: 'DELETE' })
