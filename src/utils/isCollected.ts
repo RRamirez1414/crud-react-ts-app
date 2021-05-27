@@ -4,7 +4,7 @@ type isCollectedArgs = {
 }
 
 const isCollected = ({ cards, id }: isCollectedArgs): boolean => {
-  return cards.find((card) => card.id === id) ? true : false
+  return cards.some((card) => card.id === id)
 }
 
 export default isCollected

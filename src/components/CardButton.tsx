@@ -3,10 +3,13 @@ import { useCollection } from 'hooks'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { isCollected } from 'utils'
-import { CardProps } from './Card'
 import tw from 'twin.macro'
 
-const CardButton = ({ cardData }: CardProps) => {
+type CardButtonProps = {
+  cardData: PokemonCard
+}
+
+const CardButton = ({ cardData }: CardButtonProps) => {
   const { t } = useTranslation()
   const { collection, dispatch } = useCollection()
   const [pathname, setPathName] = useState(window.location.pathname)

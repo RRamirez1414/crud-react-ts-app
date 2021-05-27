@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import CardButton from './CardButton'
 
-export type CardProps = {
+type CardProps = {
   cardData: PokemonCard
 }
 
