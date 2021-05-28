@@ -10,6 +10,7 @@ import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
 import tw from 'twin.macro'
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
 
 const SearchPage = () => {
   const { t } = useTranslation()
@@ -88,7 +89,15 @@ const SearchPage = () => {
         pokemonNameQuery.data.count > 0 ? (
           <CardGrid>
             {pokemonNameQuery.data.data.map((cardObject) => {
-              return <Card key={cardObject.id} cardData={cardObject} />
+              return (
+                <motion.div
+                  transition={{ delay: 0.2, duration: 0.2 }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                >
+                  <Card key={cardObject.id} cardData={cardObject} />
+                </motion.div>
+              )
             })}
           </CardGrid>
         ) : (
