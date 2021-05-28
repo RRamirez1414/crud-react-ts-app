@@ -3,10 +3,7 @@
 name: E2E Tests
 
 # Controls when the action will run.
-on:
-  push:
-    branches:
-      - github-actions
+on: pull_request
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:

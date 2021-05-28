@@ -32,7 +32,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "http-server -c-1 --silent",
     "cypress:open": "cypress open",
     "cypress:run-parallel": "cypress run --parallel",
     "cypress:dev": "npm run cypress:open & npm run start",
