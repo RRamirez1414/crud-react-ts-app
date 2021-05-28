@@ -32,9 +32,14 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
+<<<<<<< HEAD
     "cypress:run-parallel": "cypress run --parallel",
     "cypress:dev": "npm run cypress:open & npm run start",
     "cypress:ci": "npm start & serve -s http-get://localhost:3000 & cypress:run-parallel"
+=======
+    "cypress:dev": "npm run cypress:open & npm run start",
+    "cypress:ci": "start-server-and-test serve http-get://localhost:3000 cypress:run-parallel"
+>>>>>>> df53b25fdbe0a85010b46224ac305454145b8628
   },
   "eslintConfig": {
     "extends": [
