@@ -14,7 +14,7 @@ const MyCollectionsPage = () => {
   useEffect(() => {
     if (collection.cards.length === 0) {
       fetchCards('&q=id:swsh4-44').then((result) => {
-        if (!collection.cards.find((card) => card.id === 'basep-1'))
+        if (!collection.cards.find((card) => card.id === 'swsh4-44'))
           dispatch({
             type: 'ADD-CARD',
             card: result.data[0],
