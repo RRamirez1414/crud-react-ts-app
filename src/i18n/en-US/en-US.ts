@@ -1,6 +1,6 @@
 const translation = {
   'My Collection': 'My Collection',
-  'Search Page': 'Search Page',
+  'Search Page': 'Search',
   'Card Name': 'Card Name',
   Page: 'Page',
   of: 'of',

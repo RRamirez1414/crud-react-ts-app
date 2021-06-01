@@ -42,7 +42,7 @@ const Pagination = ({
 
 export default Pagination
 
-const PaginatedContainer = tw.div`text-2xl text-center block mx-0 mt-4 mb-12`
+const PaginatedContainer = tw.div`text-2xl text-center block mx-0 mt-4 my-12`
 
 const H2 = tw.h2`inline font-bold`
 

@@ -3,8 +3,8 @@ type isCollectedArgs = {
   id: string
 }
 
-const isCollected = ({ cards, id }: isCollectedArgs) => {
-  return cards.find((card) => card.id === id)
+const isCollected = ({ cards, id }: isCollectedArgs): boolean => {
+  return cards.some((card) => card.id === id)
 }
 
 export default isCollected

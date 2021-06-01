@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { isCollected } from 'utils'
-import { useCollection } from 'hooks'
 import tw from 'twin.macro'
-import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
+import CardButton from './CardButton'
 
 type CardProps = {
   cardData: PokemonCard
@@ -11,13 +10,23 @@ type CardProps = {
 
 const Card = ({ cardData }: CardProps) => {
   const { t } = useTranslation()
-  const { collection, dispatch } = useCollection()
-  const [pathname, setPathName] = useState(window.location.pathname)
+  const [isHovered, setHovered] = useState(false)
 
   return (
     <CardContainer>
-      <Figure>
-        <FigImage src={cardData.images.small} />
+      <Figure
+        onMouseOver={() => {
+          setHovered(true)
+        }}
+        onMouseLeave={() => {
+          setHovered(false)
+        }}
+      >
+        <FigImage
+          src={cardData.images.small}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          animate={{ translateX: isHovered ? 250 : 0 }}
+        />
         <FigCaption>
           <span>
             <p>
@@ -44,37 +53,9 @@ const Card = ({ cardData }: CardProps) => {
               </TCGLink>
             </p>
           ) : null}
-          <div>
-            {isCollected({ cards: collection.cards, id: cardData.id }) ? (
-              <div>
-                {pathname === '/search' ? <p>{t('In Collection')}</p> : null}
-                <FigButton
-                  isAdded
-                  onClick={() => {
-                    dispatch({
-                      type: 'DELETE-CARD',
-                      card: cardData,
-                    })
-                  }}
-                >
-                  {t('DELETE')}
-                </FigButton>
-              </div>
-            ) : (
-              <div>
-                <FigButton
-                  onClick={() => {
-                    dispatch({
-                      type: 'ADD-CARD',
-                      card: cardData,
-                    })
-                  }}
-                >
-                  {t('Add')}
-                </FigButton>
-              </div>
-            )}
-          </div>
+
+          <CardButton cardData={cardData} />
+
           <p>{cardData.flavorText}</p>
         </FigCaption>
       </Figure>
@@ -86,22 +67,22 @@ export default Card
 
 const CardContainer = tw.div`m-8 text-center`
 
-const Figure = styled.figure`
-  ${tw`relative rounded-xl overflow-hidden h-full shadow-bottom-right duration-100`}
-  &:hover img {
-    ${tw`motion-safe:translate-x-80`}
-  }
+const Figure = tw.figure`
+  relative 
+  rounded-xl 
+  overflow-hidden 
+  h-full 
+  shadow-bottom-right 
+  duration-100
 `
 
-const FigImage = tw.img`
+const FigImage = tw(motion.img)`
   rounded-xl 
   w-64 
   h-80 
-  transition-all 
   absolute 
   object-left
-  transform
-  duration-500
+  z-20
 `
 const FigCaption = tw.figcaption`
   text-white 
@@ -114,27 +95,5 @@ const FigCaption = tw.figcaption`
   shadow-bottom-right
 `
 
-const FigButton = styled.button<{ isAdded?: boolean }>`
-  ${tw`focus:outline-none 
-  text-white 
-  py-2.5 
-  px-5 
-  rounded-full
-  hover:shadow-lg
-  `}
-
-  ${({ isAdded }) => {
-    if (isAdded) {
-      return tw`     
-      bg-red-500 
-      hover:bg-red-600 
-      `
-    }
-    return tw`
-    bg-blue-500 
-    hover:bg-blue-600 
-    `
-  }}
-`
 const Set = tw.p`overflow-ellipsis`
 const TCGLink = tw.a`mb-12 text-gray-100 hover:underline`

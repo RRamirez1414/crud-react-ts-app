@@ -4,12 +4,13 @@ import CardGrid from './CardGrid'
 import PageTitle from './PageTitle'
 import PageContainer from './Container'
 import Pagination from './Pagination'
+import Loader from './Loader'
 import { fetchCards, ListCardsResponse } from 'utils'
 import { useFormInputDebounce } from 'hooks'
 import { useQuery } from 'react-query'
-import { CgPokemon } from 'react-icons/cg'
 import tw from 'twin.macro'
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
 
 const SearchPage = () => {
   const { t } = useTranslation()
@@ -88,11 +89,19 @@ const SearchPage = () => {
         pokemonNameQuery.data.count > 0 ? (
           <CardGrid>
             {pokemonNameQuery.data.data.map((cardObject) => {
-              return <Card key={cardObject.id} cardData={cardObject} />
+              return (
+                <motion.div
+                  transition={{ delay: 0.2, duration: 0.2 }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                >
+                  <Card key={cardObject.id} cardData={cardObject} />
+                </motion.div>
+              )
             })}
           </CardGrid>
         ) : (
-          <H2>No Results</H2>
+          <NoResults>No Results</NoResults>
         )
       ) : null}
       {pokemonNameQuery.isError ? (
@@ -131,10 +140,8 @@ focus:outline-none
 `
 const Form = tw.form`w-full inline`
 
-const H2 = tw.h2`text-center`
+const NoResults = tw.h2`text-center text-xl`
 
 const ErrorContainer = tw.div`text-center`
 
 const PaginationBottom = tw.div`align-text-bottom`
-
-const Loader = tw(CgPokemon)`inline-block h-8 w-8 mx-4`
