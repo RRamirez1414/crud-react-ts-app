@@ -8,11 +8,22 @@ export type ListCardsResponse = {
   totalCount: number
 }
 
+const client = ky.extend({
+  hooks: {
+    beforeRequest: [
+      (options) => {
+        options.headers.set('x-api-key', process.env.REACT_APP_TCG_KEY || 'foo')
+      },
+    ],
+  },
+
+  prefixUrl: 'https://api.pokemontcg.io/v2/cards?pageSize=48',
+})
+
 const fetchCards = async (searchTerm: string) => {
-  const response: ListCardsResponse = await ky(searchTerm, {
-    prefixUrl: 'https://api.pokemontcg.io/v2/cards?pageSize=48',
-    headers: { 'x-api-key': process.env.TCG_APP_API_KEY || '' },
-  }).json<ListCardsResponse>()
+  const response: ListCardsResponse = await client
+    .get(searchTerm)
+    .json<ListCardsResponse>()
 
   return response
 }
